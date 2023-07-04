@@ -7,9 +7,19 @@
 
 ### Prepare your devdesk
 
+#### Install dependencies
 ```shell
 # Install poetry
 pip install poetry
+
+# Install dependencies
+cd src
+poetry install
+```
+
+#### Activate virtual environment
+```shell
+poetry shell
 ```
 
 ### Run the server locally
