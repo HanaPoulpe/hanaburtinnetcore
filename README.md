@@ -7,7 +7,10 @@
 
 ### Prepare your devdesk
 
-TODO
+```shell
+# Install poetry
+pip install poetry
+```
 
 ### Run the server locally
 
