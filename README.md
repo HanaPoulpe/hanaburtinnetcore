@@ -24,4 +24,25 @@ poetry shell
 
 ### Run the server locally
 
-TODO
+```shell
+cd src
+```
+
+## Useful commands
+
+### Linters
+
+All linters:
+```shell
+poetry run python-linters
+```
+
+**isort**: Sort imports 
+```shell
+poetry run python-linter-isort
+```
+
+**black**: Standard python linter
+```shell
+poetry run python-linter-black
+```

@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "hanaburtincore"
+version = "0.1.0"
+description = ""
+authors = ["HanaPoulpe <hana@hanapoulpe.org>"]
+readme = "README.md"
+
+[tool.black]
+line-length = 99
+skip-numeric-underscore-normalization = 1
+exclude = '(node_modules|migrations/)'
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = "True"
+force_grid_wrap = 0
+known_first_party = "backoffice,hanaburtincore,tests"
+default_section = "THIRDPARTY"
+use_parentheses = "True"
+line_length = 99
+skip_glob="**/node_modules/*, **/migrations/**"
+src_paths = "src"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.3"
+
+[tool.poetry.group.test.dependencies]
+isort = "^5.12.0"
+black = "^23.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Commands
+[tool.poetry.scripts]
+python-linter-isort = "poetry:run_isort"
+python-linter-black = "poetry:run_black"
+python-linters = "poetry:run_linters"
