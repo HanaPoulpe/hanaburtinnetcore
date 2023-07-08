@@ -26,6 +26,7 @@ poetry shell
 
 ```shell
 cd src
+./manage runserver 8000
 ```
 
 ## Useful commands
