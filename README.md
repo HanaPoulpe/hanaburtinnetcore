@@ -37,7 +37,7 @@ All linters:
 poetry run python-linters
 ```
 
-**isort**: Sort imports 
+**isort**: Sort imports
 ```shell
 poetry run python-linter-isort
 ```
@@ -45,4 +45,9 @@ poetry run python-linter-isort
 **black**: Standard python linter
 ```shell
 poetry run python-linter-black
+```
+
+### Typing
+```shell
+poetry run python-type-checker
 ```

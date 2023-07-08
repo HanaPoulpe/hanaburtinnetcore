@@ -1,8 +1,8 @@
 # Pre commit checks
 hooks:
-- id: poetry-export
-  args: ["-f", "requirements.txt", "--with", "test"]
-  verbose: true
+-   id: poetry-export
+    args: ["-f", "requirements.txt", "--with", "test"]
+    verbose: true
 
 repos:
 -   repo: https://github.com/pre-commit/pre-commit-hooks
@@ -13,23 +13,33 @@ repos:
     -   id: check-json
     -   id: check-toml
     -   id: check-yaml
-    -   id: double-quote-string-fixer
     -   id: end-of-file-fixer
     -   id: pretty-format-json
     -   id: trailing-whitespace
 
--   repo: https://github.com/psf/black
-    rev: 22.10.0
+-   repo: local
     hooks:
+    -   id: mypy
+        name: mypy
+        entry: "poetry run python-type-checker"
+        language: "python"
+        language_version: "3.11"
+        types: [python]
+        require_serial: true
+        verbose: true
     -   id: black
         name: black
-
--   repo: https://github.com/timothycrosley/isort
-    rev: 4.3.21
-    hooks:
+        entry: "poetry run python-linter-black"
+        language: "python"
+        language_version: "3.11"
+        types: [python]
+        require_serial: true
+        verbose: true
     -   id: isort
-
--   repo: https://github.com/PyCQA/flake8
-    rev: 6.0.0
-    hooks:
-    -   id: flake8
+        name: isort
+        entry: "poetry run python-linter-isort"
+        language: "python"
+        language_version: "3.11"
+        types: [python]
+        require_serial: true
+        verbose: true

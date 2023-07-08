@@ -9,6 +9,7 @@ readme = "README.md"
 line-length = 99
 skip-numeric-underscore-normalization = 1
 exclude = '(node_modules|migrations/)'
+# diff = true
 
 [tool.isort]
 multi_line_output = 3
@@ -21,6 +22,40 @@ line_length = 99
 skip_glob="**/node_modules/*, **/migrations/**"
 src_paths = "src"
 
+[tool.mypy]
+python_version = "3.11"
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_untyped_decorators = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_incomplete_stub = true
+ignore_missing_imports = true
+plugins = ["mypy_django_plugin.main"]
+
+[tool.django-stubs]
+django_settings_module = "backoffice.settings"
+
+[tool.flake8]
+per-file-ignores = [
+    '__init__.py:F401',
+]
+max-line-length = 99
+count = true
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Commands
+[tool.poetry.scripts]
+python-linter-isort = "poetry:run_isort"
+python-linter-black = "poetry:run_black"
+python-type-checker = "poetry:run_mypy"
+python-linters = "poetry:run_linters"
+
+backoffice-start = "poetry:run_backoffice_server"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^4.2.3"
@@ -28,14 +63,5 @@ django = "^4.2.3"
 [tool.poetry.group.test.dependencies]
 isort = "^5.12.0"
 black = "^23.3.0"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
-# Commands
-
-[tool.poetry.scripts]
-python-linter-isort = "poetry:run_isort"
-python-linter-black = "poetry:run_black"
-python-linters = "poetry:run_linters"
+mypy ="^1.4.1"
+django-stubs = "^4.2.3"
