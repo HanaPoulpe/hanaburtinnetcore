@@ -1,0 +1,35 @@
+# Pre commit checks
+hooks:
+- id: poetry-export
+  args: ["-f", "requirements.txt", "--with", "test"]
+  verbose: true
+
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0  # Use the ref you want to point at
+    hooks:
+    -   id: check-ast
+    -   id: check-executables-have-shebangs
+    -   id: check-json
+    -   id: check-toml
+    -   id: check-yaml
+    -   id: double-quote-string-fixer
+    -   id: end-of-file-fixer
+    -   id: pretty-format-json
+    -   id: trailing-whitespace
+
+-   repo: https://github.com/psf/black
+    rev: 22.10.0
+    hooks:
+    -   id: black
+        name: black
+
+-   repo: https://github.com/timothycrosley/isort
+    rev: 4.3.21
+    hooks:
+    -   id: isort
+
+-   repo: https://github.com/PyCQA/flake8
+    rev: 6.0.0
+    hooks:
+    -   id: flake8
