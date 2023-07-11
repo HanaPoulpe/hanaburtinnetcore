@@ -52,3 +52,10 @@ poetry run python-linter-black
 ```shell
 poetry run python-type-checker
 ```
+
+## Tests
+
+### Python tests
+```shell
+poetry run python-tests
+```

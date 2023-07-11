@@ -28,3 +28,7 @@ def run_linters() -> None:
 
 def run_backoffice_server() -> None:
     manage.main("poetry-run", "runserver", "8000", *sys.argv[1:])
+
+
+def run_python_tests() -> None:
+    subprocess.check_call(["pytest"] + sys.argv[1:])
