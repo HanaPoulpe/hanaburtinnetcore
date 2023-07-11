@@ -59,6 +59,7 @@ backoffice-start = "poetry:run_backoffice_server"
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^4.2.3"
+pytz = "^2023.3"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.12.0"
