@@ -1,1 +1,5 @@
-from backoffice.settings import *
+from backoffice.settings import base
+
+
+class BaseTest(base.Base):
+    pass

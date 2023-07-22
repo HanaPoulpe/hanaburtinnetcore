@@ -1,3 +1,4 @@
+import os
 import subprocess
 import sys
 
@@ -27,6 +28,7 @@ def run_linters() -> None:
 
 
 def run_backoffice_server() -> None:
+    os.environ.setdefault("DJANGON_CONFIGURATION", "Base")
     manage.main("poetry-run", "runserver", "8000", *sys.argv[1:])
 
 

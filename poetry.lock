@@ -122,6 +122,27 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-configurations"
+version = "2.4.1"
+description = "A helper for organizing Django settings."
+optional = false
+python-versions = ">=3.7, <4.0"
+files = [
+    {file = "django-configurations-2.4.1.tar.gz", hash = "sha256:a6c25c143834e67b20d34751512d08b3290684f25098ee212b1ee36804a59085"},
+    {file = "django_configurations-2.4.1-py3-none-any.whl", hash = "sha256:8bf8866ae29db89ecf93a7743450b5d8974073cf7c194fd98764fd16deac218d"},
+]
+
+[package.dependencies]
+django = ">=3.2"
+
+[package.extras]
+cache = ["django-cache-url"]
+database = ["dj-database-url"]
+email = ["dj-email-url"]
+search = ["dj-search-url"]
+testing = ["dj-database-url", "dj-email-url", "dj-search-url", "django-cache-url (>=1.0.0)"]
+
+[[package]]
 name = "django-stubs"
 version = "4.2.3"
 description = "Mypy stubs for Django"
@@ -547,4 +568,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c36c35f04f10dc98a73ae0d96cf033e3f0aa6d6eee600bc0b98d3417eb035a83"
+content-hash = "82451e3f333eeab7641b4bf4393ac45591bea240521f9bd87bd4dc89f127c07d"
