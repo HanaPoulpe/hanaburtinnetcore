@@ -3,12 +3,9 @@ from datetime import datetime
 import pytest
 import pytz
 import time_machine
-from django.conf import settings
 from django.test import override_settings
 
 from hanaburtincore.utils import localtime
-
-settings.configure()
 
 
 def assert_timezone_aware(d: localtime.datetime) -> None:

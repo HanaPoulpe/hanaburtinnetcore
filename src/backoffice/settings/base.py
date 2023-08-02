@@ -81,6 +81,7 @@ class Base(Configuration):
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+    IGNORE_OPERATION_SETTINGS = False
 
     # Password validation
     # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
