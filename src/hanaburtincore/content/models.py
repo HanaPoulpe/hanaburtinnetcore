@@ -4,6 +4,8 @@ from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.db import models
 
+from hanaburtincore.utils import localtime
+
 
 # Enums #
 class TextFormats(models.TextChoices):
@@ -46,10 +48,46 @@ class GenericContent(models.Model):
     class Meta:
         abstract = True
 
+    def __repr__(self) -> str:
+        return "%(class)s<id=%(id)s, name=%(name)r>" % {
+            "class": self.__class__.__name__,
+            "id": self.id,
+            "name": self.name,
+        }
+
 
 class Article(GenericContent):
     format = models.CharField(max_length=30, choices=TextFormats.choices, null=False, blank=False)
     content = models.TextField()
+    published_at = models.DateTimeField(null=True, default=None)
+    redacted_at = models.DateTimeField(null=True, default=None)
+
+    @property
+    def is_published(self) -> bool:
+        if not self.published_at:
+            return False
+
+        return self.published_at <= localtime.now() and not self.is_redacted
+
+    @property
+    def is_redacted(self) -> bool:
+        if not self.redacted_at:
+            return False
+
+        return self.redacted_at <= localtime.now()
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(published_at__lte=models.F("redacted_at")),
+                name="check_published_redacted_dates",
+            ),
+            models.CheckConstraint(
+                check=models.Q(published_at__isnull=False)
+                | models.Q(published_at__isnull=True, redacted_at__isnull=True),
+                name="check_published_if_redacted",
+            ),
+        ]
 
 
 class File(GenericContent):

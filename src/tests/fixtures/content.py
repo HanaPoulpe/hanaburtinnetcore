@@ -5,12 +5,28 @@ from pathlib import Path
 import pytest
 
 from hanaburtincore.content import models as content_models
+from hanaburtincore.utils import localtime
 from tests.factories import content as content_factories
 
 
 @pytest.fixture
 def article() -> content_models.Article:
     return content_factories.Article()
+
+
+@pytest.fixture
+def published_article() -> content_models.Article:
+    return content_factories.Article(
+        published_at=localtime.now(),
+    )
+
+
+@pytest.fixture
+def redacted_article() -> content_models.Article:
+    return content_factories.Article(
+        published_at=localtime.yesterday(),
+        redacted_at=localtime.now(),
+    )
 
 
 @pytest.fixture
