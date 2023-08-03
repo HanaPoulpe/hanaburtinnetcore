@@ -10,3 +10,7 @@ def get_tz() -> tzinfo:
 
 def now(tz: tzinfo | None = None) -> datetime:
     return datetime.now(tz or get_tz())
+
+
+def yesterday(tz: tzinfo | None = None) -> datetime:
+    return now(tz) - timedelta(days=1)

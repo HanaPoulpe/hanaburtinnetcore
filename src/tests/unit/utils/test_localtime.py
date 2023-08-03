@@ -27,3 +27,13 @@ def test_now(tz_name: str) -> None:
 
         assert_timezone_aware(now)
         assert now.tzinfo.utcoffset(now) == pytz.timezone(tz_name).utcoffset(datetime(2023, 7, 19))
+
+
+@time_machine.travel("2023-08-03", tick=False)
+def test_yesterday() -> None:
+    now = localtime.now()
+
+    yesterday = localtime.yesterday()
+
+    assert_timezone_aware(yesterday)
+    assert yesterday == now - localtime.timedelta(days=1)
