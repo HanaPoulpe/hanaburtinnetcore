@@ -43,3 +43,11 @@ repos:
         types: [python]
         require_serial: true
         verbose: true
+    -   id: python-tests
+        name: python-tests
+        entry: "poetry run python-tests"
+        language: "python"
+        language_version: "3.11"
+        types: [python]
+        require_serial: true
+        verbose: true
