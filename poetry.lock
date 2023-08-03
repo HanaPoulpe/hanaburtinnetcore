@@ -113,6 +113,17 @@ files = [
 ]
 
 [[package]]
+name = "commit-linter"
+version = "1.0.2"
+description = "simple git hooks scripts for a better git experience that enforces you to use the known commit messages conventions"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "commit-linter-1.0.2.tar.gz", hash = "sha256:ea3cb1f157ec77d20031c6aff7b91e2de64c5864f65045925dd0ab1eccd95256"},
+    {file = "commit_linter-1.0.2-py3-none-any.whl", hash = "sha256:b27fc0ff9a7deac6b1b33efff0a440348680e2af84d0bf54461937ae70cab2d8"},
+]
+
+[[package]]
 name = "django"
 version = "4.2.3"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -189,6 +200,38 @@ files = [
 [package.dependencies]
 django = "*"
 typing-extensions = "*"
+
+[[package]]
+name = "factory-boy"
+version = "3.3.0"
+description = "A versatile test fixtures replacement based on thoughtbot's factory_bot for Ruby."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "factory_boy-3.3.0-py2.py3-none-any.whl", hash = "sha256:a2cdbdb63228177aa4f1c52f4b6d83fab2b8623bf602c7dedd7eb83c0f69c04c"},
+    {file = "factory_boy-3.3.0.tar.gz", hash = "sha256:bc76d97d1a65bbd9842a6d722882098eb549ec8ee1081f9fb2e8ff29f0c300f1"},
+]
+
+[package.dependencies]
+Faker = ">=0.7.0"
+
+[package.extras]
+dev = ["Django", "Pillow", "SQLAlchemy", "coverage", "flake8", "isort", "mongoengine", "sqlalchemy-utils", "tox", "wheel (>=0.32.0)", "zest.releaser[recommended]"]
+doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
+
+[[package]]
+name = "faker"
+version = "19.2.0"
+description = "Faker is a Python package that generates fake data for you."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "Faker-19.2.0-py3-none-any.whl", hash = "sha256:c6c1218482faf79ae1d791bb7124067d12339e0b8f400de855e2c281bcf78c77"},
+    {file = "Faker-19.2.0.tar.gz", hash = "sha256:78840b94843f3aa32a34a220b2b5e8b309e3ffff3a231b0c54e841bb68e0757d"},
+]
+
+[package.dependencies]
+python-dateutil = ">=2.4"
 
 [[package]]
 name = "hypothesis"
@@ -579,4 +622,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "82451e3f333eeab7641b4bf4393ac45591bea240521f9bd87bd4dc89f127c07d"
+content-hash = "23f21d402509f60cf0f7fda28bb1d7529d0e524a23773400639d5c7c3e8c5b8c"
