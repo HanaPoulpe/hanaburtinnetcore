@@ -2,6 +2,7 @@ from typing import Any
 
 import factory
 import lorem
+from factory.django import DjangoModelFactory
 
 from hanaburtincore.content import models
 
@@ -14,7 +15,7 @@ def lazy_paragraph(*args: Any) -> str:
     return lorem.get_paragraph()
 
 
-class Article(factory.Factory):
+class Article(DjangoModelFactory):
     class Meta:
         model = models.Article
 
@@ -23,7 +24,7 @@ class Article(factory.Factory):
     content = factory.LazyAttribute(lazy_paragraph)
 
 
-class File(factory.Factory):
+class File(DjangoModelFactory):
     class Meta:
         model = models.File
 

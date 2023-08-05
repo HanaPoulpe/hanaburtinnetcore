@@ -55,7 +55,6 @@ class TestAtomicOperations:
     @pytest.mark.django_db
     def test_operation_failed(self, article: content_models.Article) -> None:
         initial_name = article.name
-        article.save(force_insert=True)
 
         with pytest.raises(SomeException), transaction.atomic():
             self.operation(SomeException(), article)
@@ -66,7 +65,6 @@ class TestAtomicOperations:
     @pytest.mark.django_db
     def test_operation_transaction_failed(self, article: content_models.Article) -> None:
         initial_name = article.name
-        article.save(force_insert=True)
 
         class Rollback(Exception):
             pass
