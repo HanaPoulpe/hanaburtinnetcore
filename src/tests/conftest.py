@@ -1,7 +1,7 @@
 import configurations.wsgi
 import pytest
 
-from tests.fixtures import article, external_file, internal_file
+from tests.fixtures import *
 
 
 def pytest_runtest_setup(item):  # type: ignore
