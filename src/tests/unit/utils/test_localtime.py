@@ -37,3 +37,12 @@ def test_yesterday() -> None:
 
     assert_timezone_aware(yesterday)
     assert yesterday == now - localtime.timedelta(days=1)
+
+
+@time_machine.travel("2023-08-06")
+def test_make_aware() -> None:
+    now = localtime.datetime.now()
+
+    now = localtime.make_aware(now)
+
+    assert_timezone_aware(now)

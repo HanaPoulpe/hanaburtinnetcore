@@ -1,4 +1,5 @@
 from datetime import date, datetime, time, timedelta, timezone, tzinfo
+from typing import TypeVar
 
 import pytz
 from django.conf import settings
@@ -14,3 +15,11 @@ def now(tz: tzinfo | None = None) -> datetime:
 
 def yesterday(tz: tzinfo | None = None) -> datetime:
     return now(tz) - timedelta(days=1)
+
+
+def make_aware(o: datetime) -> datetime:
+    if o.tzinfo is not None:
+        return o
+    o = o.astimezone(tz=get_tz())
+
+    return o
