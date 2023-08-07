@@ -28,6 +28,11 @@ def run_linters() -> None:
 
 
 def run_backoffice_server() -> None:
+    dotenv_file = os.path.join(os.path.dirname(__file__), ".env")
+    if not os.path.exists(dotenv_file):
+        with open(dotenv_file):
+            print(".env file not found, creating an empty one.")
+
     os.environ.setdefault("DJANGON_CONFIGURATION", "Base")
     manage.main("poetry-run", "runserver", "8000", *sys.argv[1:])
 

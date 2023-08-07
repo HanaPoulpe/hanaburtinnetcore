@@ -4,6 +4,8 @@ import os
 import sys
 from typing import Any
 
+import dotenv
+
 
 def main(*argv: Any) -> None:
     """Run administrative tasks."""

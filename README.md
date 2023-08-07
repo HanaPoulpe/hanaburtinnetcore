@@ -22,6 +22,14 @@ poetry install
 poetry shell
 ```
 
+### Configure local environment
+
+```shell
+cp src/.env.example src/.env
+```
+
+* Configure relevant API Keys
+
 ### Run the server locally
 
 ```shell

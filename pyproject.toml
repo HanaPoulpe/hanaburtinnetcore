@@ -27,7 +27,7 @@ python_version = "3.11"
 disallow_untyped_calls = true
 disallow_untyped_defs = true
 disallow_untyped_decorators = false
-warn_redundant_casts = true
+featwarn_redundant_casts = true
 warn_unreachable = true
 warn_incomplete_stub = true
 ignore_missing_imports = true
@@ -67,6 +67,7 @@ pytz = "^2023.3"
 django-configurations = "^2.4.1"
 pytest-env = "^0.8.2"
 attr = "^0.3.2"
+python-dotenv = "^1.0.0"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.12.0"
