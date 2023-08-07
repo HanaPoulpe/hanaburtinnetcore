@@ -1,12 +1,12 @@
+import zoneinfo
 from datetime import date, datetime, time, timedelta, timezone, tzinfo
 from typing import TypeVar
 
-import pytz
 from django.conf import settings
 
 
 def get_tz() -> tzinfo:
-    return pytz.timezone(settings.TIME_ZONE)
+    return zoneinfo.ZoneInfo(settings.TIME_ZONE)
 
 
 def now(tz: tzinfo | None = None) -> datetime:
