@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             model_name="article",
             constraint=models.CheckConstraint(
                 check=models.Q(
-                    ("published_ad__isnull", False),
+                    ("published_at__isnull", False),
                     models.Q(("published_at__isnull", True), ("redacted_at__isnull", True)),
                     _connector="OR",
                 ),
