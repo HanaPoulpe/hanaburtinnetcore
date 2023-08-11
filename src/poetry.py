@@ -33,8 +33,7 @@ def run_backoffice_server() -> None:
         with open(dotenv_file):
             print(".env file not found, creating an empty one.")
 
-    os.environ.setdefault("DJANGON_CONFIGURATION", "Base")
-    manage.main("poetry-run", "runserver", "8000", *sys.argv[1:])
+    manage.main("poetry-run", "runserver", "0.0.0.0:8000", *sys.argv[1:])
 
 
 def run_python_tests() -> None:
