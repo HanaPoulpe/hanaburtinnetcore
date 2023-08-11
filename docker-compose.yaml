@@ -1,0 +1,29 @@
+version: "3.9"
+services:
+  backoffice:
+    build: .
+    ports:
+      - "8000:8000"
+    command: poetry run backoffice-start
+    volumes:
+      - .:/src
+    environment:
+      - "DJANGO_CONFIGURATION=Base"
+      - "CORE_DATABASE_NAME=postgres"
+      - "CORE_DATABASE_HOST=db"
+      - "CORE_DATABASE_USER=postgres"
+      - "CORE_DATABASE_PASSWORD=postgres"
+      - "CORE_DATABASE_PORT=5432"
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdata:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+volumes:
+  postgresdata:

@@ -38,3 +38,26 @@ def run_backoffice_server() -> None:
 
 def run_python_tests() -> None:
     subprocess.check_call(["pytest"] + sys.argv[1:])
+
+
+def build_docker_compose() -> None:
+    if r := subprocess.call(("docker-compose", "up", "-d", "--build")):
+        exit(r)
+    docker_run_migrations()
+
+
+def stop_docker_compose() -> None:
+    if r := subprocess.call(("docker-compose", "down")):
+        exit(r)
+
+
+def start_docker_compose() -> None:
+    if r := subprocess.call(("docker-compose", "up")):
+        exit(r)
+
+
+def docker_run_migrations() -> None:
+    if r := subprocess.call(
+        ("docker-compose", "exec", "backoffice", "python", "src/manage.py", "migrate")
+    ):
+        exit(r)

@@ -44,9 +44,24 @@ cp src/.env.example src/.env
 
 ### Run the server locally
 
+Start the server with docker compose
 ```shell
-cd src
-./manage runserver 8000
+poetry run docker-start
+```
+
+Stop docker compose
+```shell
+poetry run docker-stop
+```
+
+Run django migrations
+```shell
+poetry run docker-migrate
+```
+
+Full django build
+```shell
+poetry run docker-build
 ```
 
 ## Useful commands

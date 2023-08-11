@@ -15,3 +15,5 @@ COPY . .
 # Setup environment
 RUN pip install poetry
 RUN poetry install
+RUN poetry export > requirements.txt
+RUN pip install -r requirements.txt
