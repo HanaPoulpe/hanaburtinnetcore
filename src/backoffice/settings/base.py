@@ -78,10 +78,20 @@ class Base(Configuration):
 
     DATABASES = {
         "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": BASE_DIR / "db.sqlite3",
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv("CORE_DATABASE_NAME"),
+            "USER": os.getenv("CORE_DATABASE_USER"),
+            "PASSWORD": os.getenv("CORE_DATABASE_PASSWORD"),
+            "HOST": os.getenv("CORE_DATABASE_HOST"),
+            "PORT": os.getenv("CORE_DATABASE_PORT"),
+            "TEST": {
+                "NAME": "tests_core",
+            },
         }
     }
+    PYTEST_SETUP_DATABASES = [
+        "default",
+    ]
     IGNORE_OPERATION_SETTINGS = False
 
     # Password validation

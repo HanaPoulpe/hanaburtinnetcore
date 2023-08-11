@@ -7,6 +7,18 @@
 
 ### Prepare your devdesk
 
+#### Prerequisites
+
+_**TODO:** Update tests to use docker PostgreSQL container_
+
+* PostgreSQL server installed
+* User with `CREATEDB` permission and access to PostgreSQL socket
+
+Setup PostgreSQL role:
+```shell
+echo "CREATE USER $(whoami) WITH CREATEDB;" | psql -U postgres
+```
+
 #### Install dependencies
 ```shell
 # Install poetry
