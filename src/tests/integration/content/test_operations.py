@@ -16,7 +16,7 @@ class TestArticleOperations:
 
     @pytest.fixture
     def title(self) -> str:
-        return lorem.get_sentence()
+        return lorem.get_sentence()[:100]
 
     @pytest.fixture
     def content(self) -> str:

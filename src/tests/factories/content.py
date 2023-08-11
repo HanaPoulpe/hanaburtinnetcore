@@ -8,7 +8,7 @@ from hanaburtincore.content import models
 
 
 def lazy_sentence(*args: Any) -> str:
-    return lorem.get_sentence()
+    return lorem.get_sentence()[:100]
 
 
 def lazy_paragraph(*args: Any) -> str:
