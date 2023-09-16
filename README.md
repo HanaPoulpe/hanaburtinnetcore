@@ -27,6 +27,7 @@ pip install poetry
 # Install dependencies
 cd src
 poetry install
+poetry run install-frontend-dependencies
 ```
 
 #### Activate virtual environment
