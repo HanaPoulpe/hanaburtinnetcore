@@ -40,6 +40,7 @@ class Base(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
+        "webpack_loader",
         "hanaburtincore.content",
     ]
 
@@ -136,5 +137,12 @@ class Base(Configuration):
     # Content management
     BROKEN_MEDIA_URL = ""
 
-    # External API
-    ## Storyblok
+    # Javascript Framework
+    WEBPACK_LOADER = {
+        "DEFAULT": {
+            "CACHE": not DEBUG,
+            "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
+            "POLL_INTERVAL": 0.1,
+            "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+        }
+    }

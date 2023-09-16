@@ -17,3 +17,5 @@ RUN pip install poetry
 RUN poetry install
 RUN poetry export > requirements.txt
 RUN pip install -r requirements.txt
+RUN apt update && apt install npm -y
+RUN poetry run frontend-build

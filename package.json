@@ -1,0 +1,42 @@
+{
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/HanaPoulpe/hanaburtinnetcore/issues"
+  },
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es5"
+  },
+  "description": "",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-bundle-tracker": "^2.0.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "homepage": "https://github.com/HanaPoulpe/hanaburtinnetcore#readme",
+  "include": [
+    "./src"
+  ],
+  "keywords": [],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "hanaburtincore",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HanaPoulpe/hanaburtinnetcore.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.1.0"
+}

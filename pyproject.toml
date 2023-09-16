@@ -57,6 +57,10 @@ python-type-checker = "poetry:run_mypy"
 python-linters = "poetry:run_linters"
 python-tests = "poetry:run_python_tests"
 
+frontend-build = "poetry:build_frontend"
+
+install-frontend-requirements = "poetry:install_frontend_requirements"
+
 backoffice-start = "poetry:run_backoffice_server"
 
 docker-build = "poetry:build_docker_compose"
@@ -73,6 +77,7 @@ pytest-env = "^1.0.1"
 attr = "^0.3.2"
 python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.7"
+django-webpack-loader = "^2.0.1"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.12.0"

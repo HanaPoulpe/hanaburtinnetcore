@@ -1,3 +1,4 @@
 /src/db.sqlite3
 /src/.env
 .postgresdata
+/node_modules/
