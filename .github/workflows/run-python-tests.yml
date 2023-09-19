@@ -1,0 +1,62 @@
+name: "python-tests"
+run-name: "python-tests"
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    services:
+      postgres:
+        image: "postgres:15"
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        # Ensure Postgres is available
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DJANGO_CONFIGURATION: "Base"
+      DJANGO_SETTINGS_MODULE: "backoffice.settings"
+      CORE_DATABASE_NAME: "postgres"
+      CORE_DATABASE_HOST: "postgres"
+      CORE_DATABASE_USER: "postgres"
+      CORE_DATABASE_PASSWORD: "postgres"
+      CORE_DATABASE_PORT: "5432"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - run: touch src/.env
+
+      - name: Install dependencies
+        run: |
+          pip install poetry
+          poetry install
+          poetry export > requirements.txt
+          pip install -r requirements.txt
+          apt update && apt install npm -y
+          poetry run frontend-build
+
+      - name: Run pytest
+        run: poetry run python-tests
+
+      - name: Run python typing
+        run: poetry run python-type-checker
+
+      - name: Run python isort
+        run: poetry run python-linter-isort --check .
+
+      - name: Run black
+        run: poetry run python-linter-black --check .
