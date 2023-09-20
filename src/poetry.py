@@ -14,7 +14,7 @@ def _until_terminated() -> Generator[None, None, None]:
     class Signal(RuntimeError):
         pass
 
-    def _signal_handler(signum: int, frame: Any):
+    def _signal_handler(signum: int, frame: Any) -> None:
         raise Signal()
 
     signal.signal(signal.SIGINT, _signal_handler)
@@ -28,22 +28,28 @@ def _until_terminated() -> Generator[None, None, None]:
 
 
 def run_isort() -> None:
-    subprocess.run(["isort"] + (sys.argv[1:] or ["."]))
+    subprocess.check_call(["isort"] + (sys.argv[1:] or ["."]))
 
 
 def run_black() -> None:
-    subprocess.run(["black"] + (sys.argv[1:] or ["."]))
+    subprocess.check_call(["black"] + (sys.argv[1:] or ["."]))
 
 
 def run_mypy() -> None:
-    subprocess.run(["mypy"] + (sys.argv[1:] or ["."]))
+    subprocess.check_call(["mypy"] + (sys.argv[1:] or ["."]))
 
 
 def run_linters() -> None:
-    print("Running isort...")
-    run_isort()
-    print("Running black...")
-    run_black()
+    errors: list[Exception] = []
+    for name, check in (("isort", run_isort), ("black", run_black)):
+        print("Running %s..." % name)
+        try:
+            check()
+        except subprocess.CalledProcessError as err:
+            errors.append(err)
+
+    if errors:
+        raise ExceptionGroup("Linter failed", errors)
 
 
 def run_backoffice_server() -> None:
