@@ -41,7 +41,7 @@
     "url": "git+https://github.com/HanaPoulpe/hanaburtinnetcore.git"
   },
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "version": "0.1.0"
 }
