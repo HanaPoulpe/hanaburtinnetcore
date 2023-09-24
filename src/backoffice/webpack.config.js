@@ -1,8 +1,9 @@
-const path = require('path');
-const webpack = require('webpack');
+import { glob } from 'glob';
+
+const Path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
 
-const getEntryObject = () => {
+export const getEntryObject = () => {
   const entries = {};
   // for javascript entry file
   glob.sync(Path.join(__dirname, "./assets/*.js")).forEach((path) => {
@@ -21,7 +22,7 @@ module.exports = {
   context: __dirname,
   entry: './assets/js/index',
   output: {
-    path: path.resolve('./assets/webpack_bundles/'),
+    path: Path.resolve('./assets/webpack_bundles/'),
     filename: "[name]-[hash].js"
   },
   plugins: [

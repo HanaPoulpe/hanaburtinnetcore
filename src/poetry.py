@@ -39,6 +39,14 @@ def run_mypy() -> None:
     subprocess.check_call(["mypy"] + (sys.argv[1:] or ["."]))
 
 
+def run_eslint() -> None:
+    subprocess.check_call(["eslint"] + (sys.argv[1:] or ["."]))
+
+
+def run_js_tests() -> None:
+    subprocess.check_call(["npm", "test"] + sys.argv[1:])
+
+
 def run_linters() -> None:
     errors: list[Exception] = []
     for name, check in (("isort", run_isort), ("black", run_black)):
