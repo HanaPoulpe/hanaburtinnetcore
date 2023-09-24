@@ -102,7 +102,7 @@ def build_frontend(set_watcher_mode: bool = False) -> None:
 
 
 def install_frontend_requirements() -> None:
-    dependencies = (("npn", "install"),)
+    dependencies = (("npm", "install"),)
 
     for installer in dependencies:
         subprocess.run(installer)
