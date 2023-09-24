@@ -13,6 +13,9 @@
     "strictNullChecks": true,
     "target": "es5"
   },
+  "dependencies": {
+    "@babel/eslint-parser": "^7.22.15"
+  },
   "description": "",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^6.7.2",
