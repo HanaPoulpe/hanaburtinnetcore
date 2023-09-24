@@ -110,7 +110,15 @@ def build_frontend(set_watcher_mode: bool = False) -> None:
 
 
 def install_frontend_requirements() -> None:
-    dependencies = (("npm", "install"),)
+    match sys.argv:
+        case [_]:
+            dependencies = [["npm", "install", "--omit", "dev"]]
+        case [_, "--test"]:
+            dependencies = [["npm", "install"]]
+        case _:
+            print("install-frontend-requirements: installs requirements to run the application.")
+            print("install-frontend-requirements --test: install tests requirements.")
+            raise RuntimeError("Unknown frontend installation parameters.")
 
     for installer in dependencies:
         subprocess.run(installer)
