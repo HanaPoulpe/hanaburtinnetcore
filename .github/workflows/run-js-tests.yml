@@ -1,5 +1,5 @@
-name: "python-tests"
-run-name: "python-tests"
+name: "js-tests"
+run-name: "js-tests"
 on:
   push:
     branches:
@@ -43,20 +43,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install poetry
-          poetry install
+          poetry install --without=test
           poetry export > requirements.txt
           pip install -r requirements.txt
           apt update && apt install npm -y
-          poetry run install-frontend-requirements
+          poetry run install-frontend-requirements --test
 
-      - name: Run pytest
-        run: poetry run python-tests
+      - name: Run eslint
+        run: poetry run js-linter .
 
-      - name: Run python typing
-        run: poetry run python-type-checker
-
-      - name: Run python isort
-        run: poetry run python-linter-isort --check .
-
-      - name: Run black
-        run: poetry run python-linter-black --check .
+      - name: Run JS tests
+        run: poetry run js-tests

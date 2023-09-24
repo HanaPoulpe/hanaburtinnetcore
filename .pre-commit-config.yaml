@@ -21,6 +21,7 @@ repos:
 
 -   repo: local
     hooks:
+    # Python
     -   id: mypy
         name: mypy
         entry: "poetry run python-type-checker"
@@ -53,3 +54,21 @@ repos:
         types: [python]
         require_serial: true
         verbose: true
+
+    # Javascript
+    -   id: ts-eslint
+        name: ts-eslint
+        entry: "poetry run js-linter ."
+        language: "python"
+        language_version: "3.11"
+        types_or: [javascript, jsx, ts, tsx]
+        require_serial: true
+        verbose: true
+    -  id: ts-tests
+       name: ts-tests
+       entry: "poetry run js-tests"
+       language: "python"
+       language_version: "3.11"
+       types_or: [javascript, jsx, ts, tsx]
+       require_serial: true
+       verbose: true

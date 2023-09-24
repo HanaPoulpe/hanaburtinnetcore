@@ -60,7 +60,8 @@ python-tests = "poetry:run_python_tests"
 frontend-build = "poetry:build_frontend"
 
 install-frontend-requirements = "poetry:install_frontend_requirements"
-
+js-linter = "poetry:run_eslint"
+js-tests = "poetry:run_js_tests"
 backoffice-start = "poetry:run_backoffice_server"
 
 docker-build = "poetry:build_docker_compose"

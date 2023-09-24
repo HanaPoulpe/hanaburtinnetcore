@@ -39,6 +39,14 @@ def run_mypy() -> None:
     subprocess.check_call(["mypy"] + (sys.argv[1:] or ["."]))
 
 
+def run_eslint() -> None:
+    subprocess.check_call(["eslint"] + (sys.argv[1:] or ["."]))
+
+
+def run_js_tests() -> None:
+    subprocess.check_call(["npm", "test"] + sys.argv[1:])
+
+
 def run_linters() -> None:
     errors: list[Exception] = []
     for name, check in (("isort", run_isort), ("black", run_black)):
@@ -102,7 +110,15 @@ def build_frontend(set_watcher_mode: bool = False) -> None:
 
 
 def install_frontend_requirements() -> None:
-    dependencies = (("npn", "install"),)
+    match sys.argv:
+        case [_]:
+            dependencies = [["npm", "install", "--omit", "dev"]]
+        case [_, "--test"]:
+            dependencies = [["npm", "install"]]
+        case _:
+            print("install-frontend-requirements: installs requirements to run the application.")
+            print("install-frontend-requirements --test: install tests requirements.")
+            raise RuntimeError("Unknown frontend installation parameters.")
 
     for installer in dependencies:
         subprocess.run(installer)
