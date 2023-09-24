@@ -47,7 +47,7 @@ jobs:
           poetry export > requirements.txt
           pip install -r requirements.txt
           apt update && apt install npm -y
-          poetry run frontend-build
+          poetry run install-frontend-requirements
 
       - name: Run pytest
         run: poetry run python-tests
