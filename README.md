@@ -27,7 +27,7 @@ pip install poetry
 # Install dependencies
 cd src
 poetry install
-poetry run install-frontend-dependencies
+poetry run install-frontend-dependencies --test
 ```
 
 #### Activate virtual environment
@@ -69,7 +69,7 @@ poetry run docker-build
 
 ### Linters
 
-All linters:
+All backend linters:
 ```shell
 poetry run python-linters
 ```
@@ -89,9 +89,19 @@ poetry run python-linter-black
 poetry run python-type-checker
 ```
 
+Frontend linter and type checker:
+```shell
+poetry run js-eslint
+```
+
 ## Tests
 
 ### Python tests
 ```shell
 poetry run python-tests
+```
+
+### Javascript/Typescript tests
+```shell
+poetry run js-tests
 ```
