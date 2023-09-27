@@ -36,7 +36,7 @@
   ],
   "keywords": [],
   "license": "ISC",
-  "main": "index.js",
+  "main": "index.ts",
   "name": "hanaburtincore",
   "repository": {
     "type": "git",
