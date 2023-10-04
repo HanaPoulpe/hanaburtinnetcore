@@ -2,6 +2,7 @@ import { glob } from 'glob';
 
 const Path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
+const stylesHandler = "style-loader";
 
 export const getEntryObject = () => {
   const entries = {};
@@ -37,6 +38,10 @@ module.exports = {
         test: /\.ts$/,
         use: "ts-loader",
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/i,
+        use: [stylesHandler, 'css-loader', 'postcss-loader'],
       },
     ],
   },

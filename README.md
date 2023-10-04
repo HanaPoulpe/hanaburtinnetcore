@@ -91,7 +91,7 @@ poetry run python-type-checker
 
 Frontend linter and type checker:
 ```shell
-poetry run js-eslint
+poetry run js-linter
 ```
 
 ## Tests
