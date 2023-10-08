@@ -29,5 +29,6 @@
         "plugin:@typescript-eslint/recommended"          // rules specific to typescript, e.g., writing interfaces
       ]
     }
-  ]
+  ],
+  "ignorePatterns": ["**/webpack_bundles/*"]
 }

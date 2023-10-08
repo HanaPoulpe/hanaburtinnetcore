@@ -27,6 +27,10 @@ def _until_terminated() -> Generator[None, None, None]:
     signal.signal(signal.SIGTERM, None)
 
 
+def _node_modules_location() -> str:
+    return os.path.join(os.path.dirname(__file__), "..", "node_modules", ".bin")
+
+
 def run_isort() -> None:
     subprocess.check_call(["isort"] + (sys.argv[1:] or ["."]))
 
@@ -40,7 +44,8 @@ def run_mypy() -> None:
 
 
 def run_eslint() -> None:
-    subprocess.check_call(["eslint"] + (sys.argv[1:] or ["."]))
+    eslint_bin = os.path.join(_node_modules_location(), "eslint")
+    subprocess.check_call([eslint_bin] + (sys.argv[1:] or ["."]))
 
 
 def run_js_tests() -> None:
