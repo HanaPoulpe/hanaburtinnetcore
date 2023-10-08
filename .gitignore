@@ -2,3 +2,4 @@
 /src/.env
 .postgresdata
 /node_modules/
+/**/webpack_bundles/

@@ -6,9 +6,12 @@ module.exports = {
       '.static/**/*.js',
   ],
   darkMode: false,
-  content: [],
+  content: [
+    './pages/**/*.{html,js}',
+    './components/**/*.{html,js}',
+  ],
   theme: {
-    extend: {},
+    colors: {}
   },
   plugins: [],
 };
