@@ -145,13 +145,13 @@ bcrypt = ["bcrypt"]
 
 [[package]]
 name = "django-configurations"
-version = "2.4.1"
+version = "2.5"
 description = "A helper for organizing Django settings."
 optional = false
-python-versions = ">=3.7, <4.0"
+python-versions = ">=3.8, <4.0"
 files = [
-    {file = "django-configurations-2.4.1.tar.gz", hash = "sha256:a6c25c143834e67b20d34751512d08b3290684f25098ee212b1ee36804a59085"},
-    {file = "django_configurations-2.4.1-py3-none-any.whl", hash = "sha256:8bf8866ae29db89ecf93a7743450b5d8974073cf7c194fd98764fd16deac218d"},
+    {file = "django-configurations-2.5.tar.gz", hash = "sha256:63fa252c40dc88ea17b8b90f5f4a31a2726e586acb1ff0edc74c228c61f19e5d"},
+    {file = "django_configurations-2.5-py3-none-any.whl", hash = "sha256:cf063b99ad30013df49eaa971bd8543deffb008ff080cf3a92955dbccfe81a5c"},
 ]
 
 [package.dependencies]
@@ -755,4 +755,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "c6e9c972694d1f1acab082b9e3830f82e60d85ae5ba9d2785f4df7c2c9c27b68"
+content-hash = "6e7fef798cc0553935cea2195f34c7c4d6332a036e938a1a1490d9d2ccc3b169"
