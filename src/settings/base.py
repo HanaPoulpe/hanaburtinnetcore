@@ -18,7 +18,8 @@ from configurations import Configuration
 class Base(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent
-    DOTENV = os.path.join(BASE_DIR, "../.env")
+    INTERFACE_DIR = BASE_DIR.joinpath("interfaces")
+    DOTENV = os.path.join(BASE_DIR, ".env")
 
     # Quick-start development settings - unsuitable for production
     # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -40,7 +41,6 @@ class Base(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
-        "webpack_loader",
         "hanaburtincore.content",
     ]
 
@@ -57,7 +57,7 @@ class Base(Configuration):
     ROOT_URLCONF = "backoffice.urls"
 
     # Template settings
-    TEMPLATE_DIRS = [os.path.join(BASE_DIR, "backoffice", "templates")]
+    TEMPLATE_DIRS = [INTERFACE_DIR.joinpath("templates")]
     TEMPLATES = [
         {
             "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -131,7 +131,7 @@ class Base(Configuration):
 
     STATIC_URL = "static/"
     STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, "backoffice", "static"),
+        INTERFACE_DIR.joinpath("static"),
     ]
 
     # Default primary key field type
@@ -141,13 +141,3 @@ class Base(Configuration):
 
     # Content management
     BROKEN_MEDIA_URL = ""
-
-    # Javascript Framework
-    WEBPACK_LOADER = {
-        "DEFAULT": {
-            "CACHE": not DEBUG,
-            "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-            "POLL_INTERVAL": 0.1,
-            "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-        }
-    }

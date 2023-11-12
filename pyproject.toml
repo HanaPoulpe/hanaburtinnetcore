@@ -36,7 +36,7 @@ plugins = [
 ]
 
 [tool.django-stubs]
-django_settings_module = "backoffice.settings"
+django_settings_module = "settings"
 
 [tool.flake8]
 per-file-ignores = [
@@ -78,7 +78,6 @@ pytest-env = "^1.1.3"
 attr = "^0.3.2"
 python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.9"
-django-webpack-loader = "^2.0.1"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.1"
