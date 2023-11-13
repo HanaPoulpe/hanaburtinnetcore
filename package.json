@@ -14,7 +14,7 @@
     "target": "es5"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.22.15",
+    "@babel/eslint-parser": "^7.23.3",
     "autoprefixer": "^10.4.16",
     "css-loader": "^6.8.1",
     "glob": "^10.3.10",
