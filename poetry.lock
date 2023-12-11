@@ -241,17 +241,17 @@ python-dateutil = ">=2.4"
 
 [[package]]
 name = "hypothesis"
-version = "6.91.0"
+version = "6.92.0"
 description = "A library for property-based testing"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "hypothesis-6.91.0-py3-none-any.whl", hash = "sha256:316e06d6f7d5f8ab87bcc7417fca750a2b082ed3ce902b979816b413276680b3"},
-    {file = "hypothesis-6.91.0.tar.gz", hash = "sha256:a9f61a2bcfc342febcc1d04b80a99e789c57b700f91cbd43bbdb5d651af385cd"},
+    {file = "hypothesis-6.92.0-py3-none-any.whl", hash = "sha256:d4577f99b912acc725bea684899b7cb62591a0412e2446c618be0b4855995276"},
+    {file = "hypothesis-6.92.0.tar.gz", hash = "sha256:65b72c7dc7da3e16144db54fe093c6b74a33631b933a8063eb754c5a61361ae6"},
 ]
 
 [package.dependencies]
-attrs = ">=19.2.0"
+attrs = ">=22.2.0"
 sortedcontainers = ">=2.1.0,<3.0.0"
 
 [package.extras]
@@ -748,4 +748,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "931e3cf9ed6cd46dc5bc12e1e869aea6a5bb41283c68c4c603ae28e9f24b0ba8"
+content-hash = "5396c95be8440059224c10fe337f3a9d09e1bcfd317a17aaabc7d0e4f5985edf"
