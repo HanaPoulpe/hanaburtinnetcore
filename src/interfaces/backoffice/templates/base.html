@@ -1,0 +1,14 @@
+{% load webpack_loader static %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% stylesheet_pack 'index' %}
+    {% javascript_pack 'index' attrs='defer' %}
+</head>
+
+<body>
+{% block body %}{% endblock %}
+</body>
+</html>

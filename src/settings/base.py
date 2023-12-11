@@ -54,7 +54,7 @@ class Base(Configuration):
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ]
 
-    ROOT_URLCONF = "backoffice.urls"
+    ROOT_URLCONF = "hanaburtincore.urls"
 
     # Template settings
     TEMPLATE_DIRS = [INTERFACE_DIR.joinpath("templates")]
@@ -74,7 +74,7 @@ class Base(Configuration):
         },
     ]
 
-    WSGI_APPLICATION = "backoffice.wsgi.application"
+    WSGI_APPLICATION = "wsgi.application"
 
     # Database
     # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
@@ -130,9 +130,8 @@ class Base(Configuration):
     # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
     STATIC_URL = "static/"
-    STATICFILES_DIRS = [
-        INTERFACE_DIR.joinpath("static"),
-    ]
+
+    STATICFILES_DIRS: list[Path] = []
 
     # Default primary key field type
     # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

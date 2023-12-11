@@ -109,12 +109,14 @@ def docker_run_migrations() -> None:
 
 
 def build_frontend(set_watcher_mode: bool = False) -> None:
-    os.chdir(os.path.dirname(__file__))
-    watcher = ("--watch",) if set_watcher_mode else tuple()
-    subprocess.run(("npx", "webpack", "--config", "./backoffice/webpack.config.js", *watcher))
+    os.chdir(os.path.dirname(__file__) + "/interfaces/backoffice/static_src")
+    # watcher = ("--watch",) if set_watcher_mode else tuple()
+    subprocess.run(("npm", "run", "start"))
 
 
 def install_frontend_requirements() -> None:
+    os.chdir(os.path.dirname(__file__) + "/interfaces/backoffice/static_src")
+
     match sys.argv:
         case [_]:
             dependencies = [["npm", "install", "--omit", "dev"]]
