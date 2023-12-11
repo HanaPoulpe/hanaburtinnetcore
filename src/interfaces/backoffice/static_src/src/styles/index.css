@@ -1,4 +1,4 @@
-@import "tailwindcss/base";
+/* @import "tailwindcss/base"; */
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @import "https://fonts.googleapis.com/css?family=Overlock:400,700";
@@ -11,13 +11,10 @@
   --font-color-title: #78b3a2;
 }
 
-
 body {
   font-family: Overlock, sans-serif;
   padding: 1rem;
   min-height: 100vh;
-  #display: flex;
-  #flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   background-color: var(--background);
@@ -25,29 +22,4 @@ body {
   margin: 1rem;
   border-radius: 0.25rem;
   overflow: hidden;
-}
-
-h1 {
-  padding: 0.75rem 1rem;
-  font-size: xx-large;
-  font-weight: bold;
-  color: var(--font-color-title);
-}
-
-h2 {
-  padding: 0.75rem 1rem;
-  font-size: x-large;
-  font-weight: bold;
-  color: var(--font-color-title);
-}
-
-h3 {
-  padding: 0.75rem 1rem;
-  font-size: x-large;
-  font-weight: bold;
-  color: var(--font-color-title);
-}
-
-h2, p {
-  margin: 2rem;
 }
