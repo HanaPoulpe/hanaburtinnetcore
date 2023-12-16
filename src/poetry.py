@@ -111,9 +111,11 @@ def docker_run_migrations() -> None:
 
 
 def build_frontend(set_watcher_mode: bool = False) -> None:
-    os.chdir(os.path.dirname(__file__) + "/interfaces/backoffice/static_src")
-    # watcher = ("--watch",) if set_watcher_mode else tuple()
-    subprocess.run(("npm", "run", "start"))
+    watcher = "start" if set_watcher_mode else "watch"
+    subprocess.run(
+        ("npm", "run", watcher),
+        cwd=os.path.join(_CWD, "interfaces/backoffice/static_src"),
+    )
 
 
 def install_frontend_requirements() -> None:

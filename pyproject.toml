@@ -79,6 +79,7 @@ attr = "^0.3.2"
 python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.9"
 python-webpack-boilerplate = "^1.0.2"
+nvshim = "^1.1.2"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.1"
