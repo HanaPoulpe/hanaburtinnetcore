@@ -60,4 +60,7 @@ jobs:
           npm run eslint
 
       - name: Run JS tests
-        run: poetry run js-tests
+        run: |
+          export NVM_DIR=$HOME/.nvm
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm test
