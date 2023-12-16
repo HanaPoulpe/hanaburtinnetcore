@@ -40,27 +40,16 @@ jobs:
 
       - run: touch src/.env
 
+      - name: Install npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - name: Install dependencies
-        run: |
-          pip install poetry
-          poetry install --without=test
-          poetry export > requirements.txt
-          pip install -r requirements.txt
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
-          export NVM_DIR=$HOME/.nvm
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          nvm install 20.9.0
-          npm install
-          poetry run install-frontend-requirements --test
+        run: npm ci
 
       - name: Run eslint
-        run: |
-          export NVM_DIR=$HOME/.nvm
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          npm run eslint
+        uses: eslint/github-action@v0
 
       - name: Run JS tests
-        run: |
-          export NVM_DIR=$HOME/.nvm
-          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-          npm test
+        run: npm test

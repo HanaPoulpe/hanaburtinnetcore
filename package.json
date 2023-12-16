@@ -17,6 +17,7 @@
   "name": "hanaburtinnetcore",
   "scripts": {
     "eslint": "eslint",
+    "eslint:github-action": "eslint src/",
     "test": "jest --passWithNoTests"
   },
   "version": "0.0"
