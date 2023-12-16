@@ -71,7 +71,7 @@ docker-migrate = "poetry:docker_run_migrations"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-django = "^4.2.7"
+django = "^5.0"
 pytz = "^2023.3"
 django-configurations = "^2.5"
 pytest-env = "^1.1.3"
