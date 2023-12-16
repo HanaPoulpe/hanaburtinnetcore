@@ -1,0 +1,92 @@
+/* @import "tailwindcss/base"; */
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "https://fonts.googleapis.com/css?family=Overlock:400,700";
+@import "https://fonts.googleapis.com/css?family=Share+Tech+Mono:400";
+
+/* General styling */
+:root {
+  --primary: #bc76d4;
+  --secondary: #8C37AA;
+  --background: #241936;
+  --font-color: #C3F8E8;
+  --font-color-title: #78b3a2;
+}
+
+body {
+  font-family: Overlock, sans-serif;
+  padding: 1rem;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background);
+  color: var(--font-color);
+  margin: 1rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+/* Alerts */
+.alert {
+  border-radius: 1rem;
+  margin: 1rem;
+  padding: 0.25rem 1rem;
+  width: fit-content;
+  border: solid 0.2rem;
+  line-height: 0.2rem;
+
+  h1 {
+    font-size: larger;
+  }
+}
+
+.info {
+  background-color: #A3C7DC;
+  color: black;
+  border-color: #344EAB;
+
+  h1::before {
+    content: 'ℹ️ ';
+  }
+}
+
+.warning {
+  background-color: #F5D0AE;
+  color: black;
+  border-color: #B95F1F;
+
+  h1::before {
+    content: '⚠️ ';
+  }
+}
+
+.error {
+  background-color: #DCA2B0;
+  color: black;
+  border-color: #AB343B;
+
+  h1::before {
+    content: '🚨 ';
+  }
+}
+
+/* Code snipet styling */
+code {
+  background-color: #5d5162;
+  font-family: 'Share+Tech+Mono', monospace;
+  font-size: x-small;
+  color: white;
+  padding: 0 0.2rem;
+  border-radius: 0.5rem;
+}
+
+.code {
+  background-color: #5d5162;
+  font-family: 'Share+Tech+Mono', monospace;
+  font-size: x-small;
+  width: fit-content;
+  color: white;
+  border-radius: 0.5rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}

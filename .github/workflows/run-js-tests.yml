@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     runs-on: "ubuntu-latest"
-    container: "python:3.11-slim-bookworm"
+    container: "python:3.11-bookworm"
     services:
       postgres:
         image: "postgres:15"
@@ -46,11 +46,21 @@ jobs:
           poetry install --without=test
           poetry export > requirements.txt
           pip install -r requirements.txt
-          apt update && apt install npm -y
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+          export NVM_DIR=$HOME/.nvm
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          nvm install 20.9.0
+          npm install
           poetry run install-frontend-requirements --test
 
       - name: Run eslint
-        run: poetry run js-linter .
+        run: |
+          export NVM_DIR=$HOME/.nvm
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm run eslint
 
       - name: Run JS tests
-        run: poetry run js-tests
+        run: |
+          export NVM_DIR=$HOME/.nvm
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+          npm test

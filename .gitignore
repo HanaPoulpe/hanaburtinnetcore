@@ -3,3 +3,9 @@
 .postgresdata
 /node_modules/
 /**/webpack_bundles/
+/src/interfaces/backoffice/static/vendors/
+/src/interfaces/backoffice/static/js/
+/src/interfaces/backoffice/static/css/
+/src/interfaces/backoffice/static/admin/
+/src/interfaces/backoffice/static/index.**
+/src/interfaces/backoffice/static/runtime**

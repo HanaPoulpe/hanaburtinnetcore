@@ -24,6 +24,11 @@ echo "CREATE USER $(whoami) WITH CREATEDB;" | psql -U postgres
 # Install poetry
 pip install poetry
 
+# Install NVM and Node
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash \
+&& source $HOME/.nvm/nvm.sh \
+&& nvm install 20.9.0
+
 # Install dependencies
 cd src
 poetry install
@@ -91,7 +96,7 @@ poetry run python-type-checker
 
 Frontend linter and type checker:
 ```shell
-poetry run js-linter
+npm run eslint
 ```
 
 ## Tests

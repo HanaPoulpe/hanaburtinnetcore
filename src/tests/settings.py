@@ -1,4 +1,4 @@
-from backoffice.settings import base
+from settings import base
 
 
 class BaseTest(base.Base):

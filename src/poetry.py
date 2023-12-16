@@ -27,8 +27,7 @@ def _until_terminated() -> Generator[None, None, None]:
     signal.signal(signal.SIGTERM, None)
 
 
-def _node_modules_location() -> str:
-    return os.path.join(os.path.dirname(__file__), "..", "node_modules", ".bin")
+_CWD = os.path.dirname(__file__)
 
 
 def run_isort() -> None:
@@ -44,8 +43,11 @@ def run_mypy() -> None:
 
 
 def run_eslint() -> None:
-    eslint_bin = os.path.join(_node_modules_location(), "eslint")
-    subprocess.check_call([eslint_bin] + (sys.argv[1:] or ["."]))
+    eslint_bin = ["npm", "run", "eslint"]
+    subprocess.check_call(
+        eslint_bin + (sys.argv[1:]),
+        cwd=_CWD,
+    )
 
 
 def run_js_tests() -> None:
@@ -109,12 +111,14 @@ def docker_run_migrations() -> None:
 
 
 def build_frontend(set_watcher_mode: bool = False) -> None:
-    os.chdir(os.path.dirname(__file__))
-    watcher = ("--watch",) if set_watcher_mode else tuple()
-    subprocess.run(("npx", "webpack", "--config", "./backoffice/webpack.config.js", *watcher))
+    os.chdir(os.path.dirname(__file__) + "/interfaces/backoffice/static_src")
+    # watcher = ("--watch",) if set_watcher_mode else tuple()
+    subprocess.run(("npm", "run", "start"))
 
 
 def install_frontend_requirements() -> None:
+    os.chdir(os.path.dirname(__file__) + "/interfaces/backoffice/static_src")
+
     match sys.argv:
         case [_]:
             dependencies = [["npm", "install", "--omit", "dev"]]
