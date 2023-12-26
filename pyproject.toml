@@ -69,6 +69,8 @@ docker-start = "poetry:start_docker_compose"
 docker-stop = "poetry:stop_docker_compose"
 docker-migrate = "poetry:docker_run_migrations"
 
+createsuperuser = "poetry:create_superuser"
+
 [tool.poetry.dependencies]
 python = "^3.11"
 django = "^5.0"
