@@ -133,3 +133,7 @@ def install_frontend_requirements() -> None:
 
     for installer in dependencies:
         subprocess.run(installer)
+
+
+def create_superuser() -> None:
+    manage.main("poetry-run", "createsuperuser")

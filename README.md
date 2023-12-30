@@ -70,6 +70,11 @@ Full django build
 poetry run docker-build
 ```
 
+### Create super user
+```shell
+poetry run createsuperuser
+```
+
 ## Useful commands
 
 ### Linters

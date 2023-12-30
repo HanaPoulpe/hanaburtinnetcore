@@ -90,3 +90,58 @@ code {
   margin: 0.5rem;
   padding: 0.5rem;
 }
+
+/* Forms */
+form {
+  box-sizing: border-box;
+  white-space: pre-line;
+
+  h1 {
+    color: var(--font-color-title);
+  }
+
+  button {
+    background-color: var(--secondary);
+    color: var(--font-color);
+    word-wrap: normal;
+    height: 0.2rem;
+    padding: 1rem;
+    box-shadow: 0.2rem 0.4rem 0.2rem rgb(0 0 0 / 40%);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    display: inline-flex;
+    border-style: hidden;
+
+    :disabled {
+      background-color: #C2A9CB;
+    }
+  }
+
+  input {
+    background-color: #DED5DC;
+    border-style: solid;
+    border-width: 0.1rem;
+    border-color: #8A2E71;
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+    width: 100%;
+  }
+
+  input ~ label::after {
+    content: '\A';
+    white-space: pre;
+  }
+
+  input[required="true"] ~ label::after {
+    content: '*\A';
+    color: red;
+  }
+
+  div {
+    margin-bottom: 0.2rem;
+    width: 100%;
+  }
+}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+<div class="w-96 h-96 p-2.5 flex-col justify-start items-center gap-2.5 inline-flex">
+<form method="post">
+    <h1>Backoffice login:</h1>
+    {% csrf_token %}
+    {{ form.as_div }}
+
+    <div>
+        <button type="submit">Log In</button>
+    </div>
+</form>
+</div>
+{% endblock %}

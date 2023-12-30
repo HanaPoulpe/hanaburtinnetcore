@@ -11,6 +11,10 @@ class Backoffice(base.Base):
         "webpack_boilerplate",
     ]
 
+    MIDDLEWARE = base.Base.MIDDLEWARE + [
+        "hanaburtincore.authentication.middleware.AuthRequiredMiddleware",
+    ]
+
     INTERFACE_DIR = base.Base.BASE_DIR.joinpath("interfaces", "backoffice")
 
     STATICFILES_DIRS = base.Base.STATICFILES_DIRS + [
