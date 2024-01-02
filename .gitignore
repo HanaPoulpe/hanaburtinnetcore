@@ -9,3 +9,4 @@
 /src/interfaces/backoffice/static/admin/
 /src/interfaces/backoffice/static/index.**
 /src/interfaces/backoffice/static/runtime**
+/src/interfaces/backoffice/static/manifest.json
