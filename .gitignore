@@ -3,10 +3,10 @@
 .postgresdata
 /node_modules/
 /**/webpack_bundles/
-/src/interfaces/backoffice/static/vendors/
-/src/interfaces/backoffice/static/js/
-/src/interfaces/backoffice/static/css/
-/src/interfaces/backoffice/static/admin/
-/src/interfaces/backoffice/static/index.**
-/src/interfaces/backoffice/static/runtime**
-/src/interfaces/backoffice/static/manifest.json
+/src/queenbees/interfaces/**/static/vendors/
+/src/queenbees/interfaces/**/static/js/
+/src/queenbees/interfaces/**/static/css/
+/src/queenbees/interfaces/**/static/admin/
+/src/queenbees/interfaces/**/static/index.**
+/src/queenbees/interfaces/**/static/runtime**
+/src/queenbees/interfaces/**/static/manifest.json

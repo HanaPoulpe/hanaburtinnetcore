@@ -1,5 +1,5 @@
-from settings import base
+from queenbees import settings
 
 
-class BaseTest(base.Base):
+class BaseTest(settings.Base):
     pass

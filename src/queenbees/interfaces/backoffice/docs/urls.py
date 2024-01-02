@@ -1,7 +1,7 @@
 from django import urls
 from django.conf import settings
 
-from interfaces.backoffice.docs.django import urls as django_urls
+from .django import urls as django_urls
 
 urlpatterns = []
 

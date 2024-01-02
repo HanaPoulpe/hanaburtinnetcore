@@ -1,7 +1,6 @@
 from django import urls
-from django.contrib import admin
 
-from hanaburtincore import urls as core_urls
+from queenbees.core import urls as core_urls
 
 from . import views as bo_views
 from .docs import urls as docs_urls

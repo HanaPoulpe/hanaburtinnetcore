@@ -4,7 +4,7 @@ import factory
 import lorem
 from factory.django import DjangoModelFactory
 
-from hanaburtincore.content import models
+from queenbees.core.content import models
 
 
 def lazy_sentence(*args: Any) -> str:

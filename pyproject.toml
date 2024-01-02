@@ -15,7 +15,7 @@ exclude = '(node_modules|migrations/)'
 multi_line_output = 3
 include_trailing_comma = "True"
 force_grid_wrap = 0
-known_first_party = "backoffice,hanaburtincore,tests"
+known_first_party = "queenbees,tests"
 default_section = "THIRDPARTY"
 use_parentheses = "True"
 line_length = 99
@@ -36,7 +36,7 @@ plugins = [
 ]
 
 [tool.django-stubs]
-django_settings_module = "settings"
+django_settings_module = "queenbees.settings"
 
 [tool.flake8]
 per-file-ignores = [

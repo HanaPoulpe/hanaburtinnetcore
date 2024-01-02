@@ -9,7 +9,7 @@ import dotenv
 
 def main(*argv: Any) -> None:
     """Run administrative tasks."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "queenbees.settings")
     try:
         from configurations.management import execute_from_command_line
     except ImportError as exc:

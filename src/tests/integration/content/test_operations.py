@@ -4,9 +4,9 @@ import lorem
 import pytest
 import time_machine
 
-from hanaburtincore.content import models
-from hanaburtincore.content import operations as content_operations
-from hanaburtincore.utils import localtime, operations
+from queenbees.core.content import models
+from queenbees.core.content import operations as content_operations
+from queenbees.core.utils import localtime, operations
 
 
 class TestArticleOperations:

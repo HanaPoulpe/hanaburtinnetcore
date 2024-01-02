@@ -1,4 +1,4 @@
-from hanaburtincore.content import models as content_models
+from queenbees.core.content import models as content_models
 
 
 def get_article_by_name(name: str) -> content_models.Article:

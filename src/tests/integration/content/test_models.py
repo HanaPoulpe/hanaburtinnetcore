@@ -1,7 +1,7 @@
 import pytest
 import time_machine
 
-from hanaburtincore.content import models
+from queenbees.core.content import models
 
 
 class TestArticle:
