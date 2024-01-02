@@ -1,7 +1,11 @@
-# Personal website for [Hana Burtin](https://hanaburtin.net/)
+# Queenbees
 
 ![python](https://img.shields.io/static/v1?label=Python&message=3.11&logo=Python&color=3776AB)
 ![django](https://img.shields.io/static/v1?label=Django&message=5.0&logo=Django&color=092E20)
+
+Queenbees is a CMS with django backend and react front end.
+It's a personal project I want to use on multiple website projects, so it's definitely over-engineered.
+I use it also as an experimental project.
 
 ## Install and run
 
