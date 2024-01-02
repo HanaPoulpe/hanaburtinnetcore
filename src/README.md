@@ -2,8 +2,15 @@
 
 ## Directories
 
-### 1. hanaburtincore
+### 1. queenbees
 Core django application.
+
+It follows a layer structure:
+
+```mermaid
+graph TD;
+    interface-->core;
+```
 
 ### 2. tests
 All application tests
