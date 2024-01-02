@@ -17,8 +17,8 @@ from configurations import Configuration
 
 class Base(Configuration):
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    INTERFACE_DIR = BASE_DIR.joinpath("interfaces")
+    BASE_DIR = Path(__file__).resolve().parent.parent.parent
+    INTERFACE_DIR = BASE_DIR.joinpath("queenbees", "interfaces")
     DOTENV = os.path.join(BASE_DIR, ".env")
 
     # Quick-start development settings - unsuitable for production
@@ -41,7 +41,7 @@ class Base(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
-        "hanaburtincore.content",
+        "queenbees.core.content",
     ]
 
     MIDDLEWARE = [
@@ -54,10 +54,10 @@ class Base(Configuration):
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ]
 
-    ROOT_URLCONF = "hanaburtincore.urls"
+    ROOT_URLCONF = "queenbees.core.urls"
 
     # Template settings
-    TEMPLATE_DIRS = [INTERFACE_DIR.joinpath("templates")]
+    TEMPLATE_DIRS = [INTERFACE_DIR.joinpath("common", "templates")]
     TEMPLATES = [
         {
             "BACKEND": "django.template.backends.django.DjangoTemplates",

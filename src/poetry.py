@@ -114,12 +114,12 @@ def build_frontend(set_watcher_mode: bool = False) -> None:
     watcher = "start" if set_watcher_mode else "watch"
     subprocess.run(
         ("npm", "run", watcher),
-        cwd=os.path.join(_CWD, "interfaces/backoffice/static_src"),
+        cwd=os.path.join(_CWD, "queenbees/interfaces/backoffice/static_src"),
     )
 
 
 def install_frontend_requirements() -> None:
-    os.chdir(os.path.dirname(__file__) + "/interfaces/backoffice/static_src")
+    os.chdir(os.path.dirname(__file__) + "/queenbees/interfaces/backoffice/static_src")
 
     match sys.argv:
         case [_]:

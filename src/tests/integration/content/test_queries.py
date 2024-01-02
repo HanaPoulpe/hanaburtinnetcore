@@ -1,6 +1,6 @@
 import pytest
 
-from hanaburtincore.content import models, queries
+from queenbees.core.content import models, queries
 
 
 @pytest.mark.django_db

@@ -3,8 +3,8 @@ import datetime
 from django.contrib.auth import models as auth_models
 from django.db import transaction
 
-from hanaburtincore.content import models as content_models
-from hanaburtincore.utils import localtime, operations
+from queenbees.core.content import models as content_models
+from queenbees.core.utils import localtime, operations
 
 
 class DuplicateArticleError(operations.OperationError):

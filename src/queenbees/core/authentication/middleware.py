@@ -1,6 +1,6 @@
 from django import http, urls
 
-from hanaburtincore import typing
+from queenbees.core import typing
 
 
 class AuthRequiredMiddleware(typing.Middleware):

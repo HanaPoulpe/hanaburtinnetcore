@@ -5,7 +5,7 @@ import pytest
 import time_machine
 from django.test import override_settings
 
-from hanaburtincore.utils import localtime
+from queenbees.core.utils import localtime
 
 
 def assert_timezone_aware(d: localtime.datetime) -> None:

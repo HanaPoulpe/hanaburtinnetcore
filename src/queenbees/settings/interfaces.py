@@ -1,8 +1,3 @@
-import pathlib
-from pathlib import Path
-
-from django.utils import functional
-
 from . import base
 
 
@@ -12,10 +7,10 @@ class Backoffice(base.Base):
     ]
 
     MIDDLEWARE = base.Base.MIDDLEWARE + [
-        "hanaburtincore.authentication.middleware.AuthRequiredMiddleware",
+        "queenbees.core.authentication.middleware.AuthRequiredMiddleware",
     ]
 
-    INTERFACE_DIR = base.Base.BASE_DIR.joinpath("interfaces", "backoffice")
+    INTERFACE_DIR = base.Base.BASE_DIR.joinpath("queenbees", "interfaces", "backoffice")
 
     STATICFILES_DIRS = base.Base.STATICFILES_DIRS + [
         INTERFACE_DIR.joinpath("static_src", "build"),
@@ -42,4 +37,4 @@ class Backoffice(base.Base):
         },
     ]
 
-    ROOT_URLCONF = "interfaces.backoffice.urls"
+    ROOT_URLCONF = "queenbees.interfaces.backoffice.urls"
