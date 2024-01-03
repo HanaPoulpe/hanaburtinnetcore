@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 from queenbees.core.content import models as content_models
-from queenbees.core.utils import localtime
+from queenbees.utils import localtime
 from tests.factories import content as content_factories
 
 

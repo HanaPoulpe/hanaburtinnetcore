@@ -98,6 +98,11 @@ poetry run python-linter-isort
 poetry run python-linter-black
 ```
 
+**import linter**: Checks import contracts
+```shell
+poetry run python-import-linter
+```
+
 ### Typing
 ```shell
 poetry run python-type-checker

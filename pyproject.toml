@@ -45,6 +45,41 @@ per-file-ignores = [
 max-line-length = 99
 count = true
 
+[tool.importlinter]
+root_package = "queenbees"
+include_external_packages = "True"
+
+[[tool.importlinter.contracts]]
+name = "Forbidden import tests import"
+type = "forbidden"
+source_modules = [
+    "queenbees"
+]
+forbidden_modules = [
+    "tests",
+    "pytest",
+    "factory"
+]
+
+[[tool.importlinter.contracts]]
+name = "Forbidden utils imports"
+type = "forbidden"
+source_modules = [
+    "queenbees.utils"
+]
+forbidden_modules = [
+    "queenbees.core",
+    "queenbees.interfaces"
+]
+
+[[tool.importlinter.contracts]]
+name = "Queenbees layers"
+type = "layers"
+layers = [
+    "queenbees.interfaces",
+    "queenbees.core"
+]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -54,6 +89,7 @@ build-backend = "poetry.core.masonry.api"
 python-linter-isort = "poetry:run_isort"
 python-linter-black = "poetry:run_black"
 python-type-checker = "poetry:run_mypy"
+python-import-linter = "poetry:run_import_linter"
 python-linters = "poetry:run_linters"
 python-tests = "poetry:run_python_tests"
 
@@ -83,6 +119,7 @@ psycopg2-binary = "^2.9.9"
 python-webpack-boilerplate = "^1.0.2"
 nvshim = "^1.1.2"
 faker = "^22.0.0"
+import-linter = "^1.12.1"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.2"

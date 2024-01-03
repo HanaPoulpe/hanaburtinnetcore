@@ -42,6 +42,11 @@ def run_mypy() -> None:
     subprocess.check_call(["mypy"] + (sys.argv[1:] or ["."]))
 
 
+def run_import_linter() -> None:
+    os.chdir(os.path.join(_CWD, ".."))
+    subprocess.check_call(["lint-imports"])
+
+
 def run_eslint() -> None:
     eslint_bin = ["npm", "run", "eslint"]
     subprocess.check_call(
@@ -55,8 +60,13 @@ def run_js_tests() -> None:
 
 
 def run_linters() -> None:
+    linters = (
+        ("isort", run_isort),
+        ("black", run_black),
+        ("import-linter", run_import_linter),
+    )
     errors: list[Exception] = []
-    for name, check in (("isort", run_isort), ("black", run_black)):
+    for name, check in linters:
         print("Running %s..." % name)
         try:
             check()

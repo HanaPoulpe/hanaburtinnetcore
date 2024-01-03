@@ -6,7 +6,7 @@ import time_machine
 
 from queenbees.core.content import models
 from queenbees.core.content import operations as content_operations
-from queenbees.core.utils import localtime, operations
+from queenbees.utils import localtime, operations
 
 
 class TestArticleOperations:
