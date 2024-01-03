@@ -60,3 +60,6 @@ jobs:
 
       - name: Run black
         run: poetry run python-linter-black --check .
+
+      - name: Run import-linter
+        run: poetry run python-import-linter
