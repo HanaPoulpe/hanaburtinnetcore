@@ -3,7 +3,7 @@ from django.db import transaction
 from django.test import TestCase
 
 from queenbees.core.content import models as content_models
-from queenbees.core.utils import operations
+from queenbees.utils import operations
 
 
 class SomeException(Exception):

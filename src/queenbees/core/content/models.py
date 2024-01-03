@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.db import models
 
-from queenbees.core.utils import localtime
+from queenbees.utils import localtime
 
 
 # Enums #
