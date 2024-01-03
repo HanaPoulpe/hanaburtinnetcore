@@ -89,6 +89,7 @@ build-backend = "poetry.core.masonry.api"
 python-linter-isort = "poetry:run_isort"
 python-linter-black = "poetry:run_black"
 python-type-checker = "poetry:run_mypy"
+python-import-linter = "poetry:run_import_linter"
 python-linters = "poetry:run_linters"
 python-tests = "poetry:run_python_tests"
 
