@@ -9,7 +9,7 @@ import dotenv
 
 def _dotenv() -> None:
     env_suffix = os.environ.get("DJANGO_CONFIGURATION", "")
-    env_base_path = os.path.join(os.path.dirname(__file__), ".env")
+    env_base_path = os.environ.get("ENV_FILE", os.path.join(os.path.dirname(__file__), ".env"))
 
     env_paths = [
         ".".join(

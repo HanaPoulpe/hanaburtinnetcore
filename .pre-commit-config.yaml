@@ -56,7 +56,7 @@ repos:
         verbose: true
     -   id: python-tests
         name: python-tests
-        entry: "poetry run python-tests src"
+        entry: "poetry run python-tests-all"
         language: "python"
         language_version: "3.11"
         types: [python]
