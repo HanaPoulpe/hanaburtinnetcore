@@ -118,7 +118,7 @@ python-dotenv = "^1.0.0"
 psycopg2-binary = "^2.9.9"
 python-webpack-boilerplate = "^1.0.2"
 nvshim = "^1.1.2"
-faker = "^22.1.0"
+faker = "^22.2.0"
 import-linter = "^1.12.1"
 
 [tool.poetry.group.test.dependencies]
