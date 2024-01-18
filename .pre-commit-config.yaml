@@ -61,6 +61,7 @@ repos:
         language_version: "3.11"
         types: [python]
         require_serial: true
+        pass_filenames: false
         verbose: true
 
     # Javascript
