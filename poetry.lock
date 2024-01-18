@@ -548,18 +548,18 @@ files = [
 
 [[package]]
 name = "import-linter"
-version = "1.12.1"
+version = "2.0"
 description = "Enforces rules for the imports within and between Python packages."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "import-linter-1.12.1.tar.gz", hash = "sha256:3aa4da5bbed4b2e575fd2479bc7962090ae95666676fb872a4819a293b973463"},
-    {file = "import_linter-1.12.1-py3-none-any.whl", hash = "sha256:92f5ddec77c523bd95c0af88d3fdb354b705a776f7a0e59a7b25b035828a0257"},
+    {file = "import-linter-2.0.tar.gz", hash = "sha256:b067cf0cdbf11c4f87524e32c2e3eaa62d46572e9e06511e6b453198b15b1c9a"},
+    {file = "import_linter-2.0-py3-none-any.whl", hash = "sha256:200f9b46d20a055c1f6f514e4cd8074852261bc9c8733d028201a55be6058bb0"},
 ]
 
 [package.dependencies]
 click = ">=6"
-grimp = ">=3.1"
+grimp = ">=3.2"
 typing-extensions = ">=3.10.0.0"
 
 [[package]]
@@ -1372,4 +1372,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e82b209cf1d6fd8b62fc3a28ca479183cbde51949447158827302c8584a6a25d"
+content-hash = "b0ae60c3d97cf7541846da9be99f99f110d45a5b403a82c1cbf7b62fbc3b6e50"
