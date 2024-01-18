@@ -80,6 +80,9 @@ layers = [
     "queenbees.core"
 ]
 
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -91,21 +94,31 @@ python-linter-black = "poetry:run_black"
 python-type-checker = "poetry:run_mypy"
 python-import-linter = "poetry:run_import_linter"
 python-linters = "poetry:run_linters"
-python-tests = "poetry:run_python_tests"
 
+# Python Tests
+python-tests = "poetry:run_python_tests"
+python-tests-files = "poetry:run_tests_for_file"
+python-tests-all = "poetry:run_all_python_tests"
+python-tests-unit = "poetry:run_unit_tests"
+python-tests-interface-agnostic = "poetry:run_interface_agnostic_tests"
+python-tests-backoffice = "poetry:run_backoffice_tests"
+
+# Frontend
 frontend-build = "poetry:build_frontend"
 
 install-frontend-requirements = "poetry:install_frontend_requirements"
 js-linter = "poetry:run_eslint"
 js-tests = "poetry:run_js_tests"
-backoffice-start = "poetry:run_backoffice_server"
 
+# Servers
+backoffice-start = "poetry:run_backoffice_server"
+createsuperuser = "poetry:create_superuser"
+
+# Docker
 docker-build = "poetry:build_docker_compose"
 docker-start = "poetry:start_docker_compose"
 docker-stop = "poetry:stop_docker_compose"
 docker-migrate = "poetry:docker_run_migrations"
-
-createsuperuser = "poetry:create_superuser"
 
 [tool.poetry.dependencies]
 python = "^3.11"

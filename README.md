@@ -116,8 +116,30 @@ npm run eslint
 ## Tests
 
 ### Python tests
+
+Run tests for a specific target
 ```shell
-poetry run python-tests
+DJANGO_CONFIGURATION=<config> poetry run python-tests <files>
+```
+
+Run all python tests
+```shell
+poetry run python-tests-all
+```
+
+Run unit tests
+```shell
+poetry run python-tests-unit
+```
+
+Run Interface agnostic tests
+```shell
+poetry run python-tests-interface-agnostic
+```
+
+Run backoffice tests
+```shell
+poetry run python-tests-backoffice
 ```
 
 ### Javascript/Typescript tests

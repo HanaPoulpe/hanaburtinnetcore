@@ -49,9 +49,6 @@ jobs:
           apt update && apt install npm -y
           poetry run install-frontend-requirements
 
-      - name: Run pytest
-        run: poetry run python-tests
-
       - name: Run python typing
         run: poetry run python-type-checker
 
@@ -63,3 +60,12 @@ jobs:
 
       - name: Run import-linter
         run: poetry run python-import-linter
+
+      - name: Run Unit tests
+        run: poetry run python-tests-unit
+
+      - name: Run interface agnostic tests
+        run: poetry run python-tests-interface-agnostic
+
+      - name: Run backoffice tests
+        run: poetry run python-tests-backoffice

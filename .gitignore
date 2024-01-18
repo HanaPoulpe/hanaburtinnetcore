@@ -1,5 +1,6 @@
 /src/db.sqlite3
 /src/.env
+.idea
 .postgresdata
 /node_modules/
 /**/webpack_bundles/
@@ -10,3 +11,4 @@
 /src/queenbees/interfaces/**/static/index.**
 /src/queenbees/interfaces/**/static/runtime**
 /src/queenbees/interfaces/**/static/manifest.json
+/src/tests/.env
