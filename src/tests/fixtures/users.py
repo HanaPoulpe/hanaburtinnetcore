@@ -12,5 +12,6 @@ def user_with_password() -> tuple[auth_models.User, str]:
     user: auth_models.User = users_factories.User()
     password = faker.password()
     user.set_password(password)
+    user.save()
 
     return user, password
