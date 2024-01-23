@@ -7,6 +7,14 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - "**/*.js"
+      - "**/*.ts"
+      - "**/*.jsx"
+      - "**/*.tsx"
+      - "**/static_src/**"
+      - "**/package.json"
+      - "**/package-lock.json"
 jobs:
   build:
     runs-on: "ubuntu-latest"
