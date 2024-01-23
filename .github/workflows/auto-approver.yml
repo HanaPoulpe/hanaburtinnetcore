@@ -1,12 +1,7 @@
 name: "Auto approval"
 run-name: "auto-approval"
 
-on:
-  workflow_run:
-    workflows:
-      - "clear-auto-merge"
-    types:
-      - completed
+on: pull_request
 
 permissions:
   pull-requests: write

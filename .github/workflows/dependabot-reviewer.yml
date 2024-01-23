@@ -1,12 +1,6 @@
 name: Dependabot reviewer
 
-on:
-  workflow_run:
-    workflows:
-      - run-python-tests
-      - run-js-tests
-    types:
-      - completed
+on: pull_request
 
 permissions:
   pull-requests: write
