@@ -12,7 +12,7 @@ on:
       - "poetry.lock"
       - "pyproject.toml"
 jobs:
-  build:
+  python-tests:
     runs-on: "ubuntu-latest"
     container: "python:3.11-slim-bookworm"
     services:

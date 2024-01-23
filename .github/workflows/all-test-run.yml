@@ -1,0 +1,32 @@
+name: "Can merge"
+run-name: "can-merge-pr"
+
+on:
+  workflow_run:
+    workflows:
+      - "python-tests"
+      - "js-tests"
+    types:
+      - completed
+
+jobs:
+  can-merge:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      WORKFLOW_REF: ${{ github.base_ref }}
+    steps:
+      - name: Get PR number
+        uses: actions/github-script@0.3.0
+        with:
+          github-token: ${{github.token}}
+          script: |
+            const core = require('@actions/core')
+            const prNumber = context.payload.number;
+            core.exportVariable('PULL_NUMBER', prNumber);
+      - name: python-test-ok
+        run: |
+          gh run list -b $WORKFLOW_REF -w python-tests -L 1 --json conclusion | grep -e success -e skipped -e "\[]"
+      - name: js-test-ok
+        run: |
+          gh run list -b $WORKFLOW_REF -w js-tests -L 1 --json conclusion | grep -e success -e skipped -e "\[]"
