@@ -4,7 +4,7 @@ run-name: "auto-approval"
 on:
   workflow_run:
     workflows:
-      - "Clear auto-merge"
+      - "clear-auto-merge"
     types:
       - completed
 
