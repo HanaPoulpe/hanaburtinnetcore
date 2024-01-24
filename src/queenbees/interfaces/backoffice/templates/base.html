@@ -4,11 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% stylesheet_pack 'index' %}
     {% javascript_pack 'index' attrs='defer' %}
 </head>
 
 <body>
-{% block body %}{% endblock %}
+{% block menu %}{% include 'menu.html' %}{% endblock %}
+<div class="content-body">
+    {% block body %}{% endblock %}
+</div>
 </body>
 </html>

@@ -3,12 +3,15 @@
 @import "tailwindcss/utilities";
 @import "https://fonts.googleapis.com/css?family=Overlock:400,700";
 @import "https://fonts.googleapis.com/css?family=Share+Tech+Mono:400";
+@import "navbar.css";
 
 /* General styling */
 :root {
   --primary: #bc76d4;
   --secondary: #8C37AA;
-  --background: #241936;
+  --background: #56396b;
+  --background-secondary: #241936;
+  --background-accent: #3a1a57;
   --font-color: #C3F8E8;
   --font-color-title: #78b3a2;
 }
