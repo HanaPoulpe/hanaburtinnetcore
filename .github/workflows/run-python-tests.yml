@@ -45,10 +45,15 @@ jobs:
         run: |
           pip install poetry
           poetry install
-          poetry export > requirements.txt
-          pip install -r requirements.txt
-          apt update && apt install npm -y
-          poetry run install-frontend-requirements
+
+      - name: Install npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Build webpack
+        run: npm install && npm run build
+        working-directory: src/queenbees/interfaces/backoffice/static_src
 
       - name: Run python typing
         run: poetry run python-type-checker
