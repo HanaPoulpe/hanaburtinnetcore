@@ -2,6 +2,9 @@
 
 ![python](https://img.shields.io/static/v1?label=Python&message=3.11&logo=Python&color=3776AB)
 ![django](https://img.shields.io/static/v1?label=Django&message=5.0&logo=Django&color=092E20)
+[![python-tests](https://github.com/HanaPoulpe/hanaburtinnetcore/actions/workflows/run-python-tests.yml/badge.svg)](https://github.com/HanaPoulpe/hanaburtinnetcore/actions/workflows/run-python-tests.yml)
+[![js-tests](https://github.com/HanaPoulpe/hanaburtinnetcore/actions/workflows/run-js-tests.yml/badge.svg)](https://github.com/HanaPoulpe/hanaburtinnetcore/actions/workflows/run-js-tests.yml)
+[![CodeQL](https://github.com/HanaPoulpe/hanaburtinnetcore/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/HanaPoulpe/hanaburtinnetcore/actions/workflows/github-code-scanning/codeql)
 
 Queenbees is a CMS with django backend and react front end.
 It's a personal project I want to use on multiple website projects, so it's definitely over-engineered.
