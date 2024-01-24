@@ -1,10 +1,10 @@
 import attr
 import pytest
 from django import test as django_test
+from django import urls
 from django.contrib.auth import models as auth_models
 from faker import Faker
 
-from queenbees.interfaces.backoffice.views import _login as login_view
 from tests.factories import users as users_factories
 
 faker = Faker()
@@ -68,3 +68,7 @@ class TestPasswordLogin:
         assert not client.login(
             username=rejected_logins.username, password=rejected_logins.password
         )
+
+    def test_login_page(self, client: django_test.Client) -> None:
+        response = client.get(urls.reverse("login"))
+        assert response.status_code == 200
