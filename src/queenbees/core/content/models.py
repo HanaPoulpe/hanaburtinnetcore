@@ -62,6 +62,11 @@ class Article(GenericContent):
     published_at = models.DateTimeField(null=True, default=None)
     redacted_at = models.DateTimeField(null=True, default=None)
 
+    class Status(models.TextChoices):
+        DRAFT = "DRAFT", "Draft"
+        PUBLISHED = "PUBLISHED", "Published"
+        REDACTED = "REDACTED", "Redacted"
+
     @property
     def is_published(self) -> bool:
         if not self.published_at:
@@ -75,6 +80,16 @@ class Article(GenericContent):
             return False
 
         return self.redacted_at <= localtime.now()
+
+    @property
+    def status(self) -> Status:
+        if self.is_published:
+            return self.Status.PUBLISHED
+
+        if self.is_redacted:
+            return self.Status.REDACTED
+
+        return self.Status.DRAFT
 
     class Meta:
         constraints = [

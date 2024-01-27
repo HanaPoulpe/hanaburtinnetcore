@@ -1,7 +1,14 @@
+import attr
 import pytest
 import time_machine
 
-from queenbees.core.content import models
+from queenbees.core.content import models, operations
+
+
+@attr.define(frozen=True)
+class ArticleStatus:
+    status: models.Article.Status
+    article: models.Article
 
 
 class TestArticle:
@@ -24,3 +31,45 @@ class TestArticle:
         assert not redacted_article.is_published
         assert redacted_article.is_redacted
         assert redacted_article.published_at is not None
+
+    @pytest.fixture
+    def article_with_status(
+        self,
+        request: pytest.FixtureRequest,
+        article: models.Article,
+    ) -> ArticleStatus:
+        if request.param == "published":
+            return ArticleStatus(
+                models.Article.Status.PUBLISHED,
+                operations.publish_article(
+                    article=article,
+                    user=None,
+                ),
+            )
+
+        if request.param == "redacted":
+            operations.publish_article(
+                article=article,
+                user=None,
+            )
+            return ArticleStatus(
+                models.Article.Status.REDACTED,
+                operations.redact_article(
+                    article=article,
+                    user=None,
+                ),
+            )
+
+        return ArticleStatus(
+            models.Article.Status.DRAFT,
+            article,
+        )
+
+    @pytest.mark.django_db
+    @pytest.mark.parametrize(
+        "article_with_status",
+        ["draft", "published", "redacted"],
+        indirect=True,
+    )
+    def test_article_status(self, article_with_status: ArticleStatus) -> None:
+        assert article_with_status.article.status == article_with_status.status

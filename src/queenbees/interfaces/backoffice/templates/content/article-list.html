@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for article in object_list %}
+            <tr>
+                <td>{{ article.name }}</td>
+                <td>{{ article.created_by }}</td>
+                <td>{{ article.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
