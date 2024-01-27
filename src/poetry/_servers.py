@@ -1,9 +1,29 @@
+import contextlib
+import multiprocessing
 import os
 import sys
+from collections.abc import Generator
 
 import manage
 
+from . import _general as general
 from . import _utils as utils
+
+
+@contextlib.contextmanager
+def _with_frontend() -> Generator[None, None, None]:
+    if not os.environ.get("LOCALDEV"):
+        yield
+        return
+
+    frontend = multiprocessing.Process(
+        target=general.build_frontend,
+        kwargs={"set_watcher_mode": True},
+    )
+    frontend.start()
+    yield
+    frontend.terminate()
+    frontend.join()
 
 
 def run_server(port: int = 8000) -> None:
@@ -17,4 +37,5 @@ def run_backoffice_server() -> None:
                 print(".env file not found, creating an empty one.")
 
         os.environ["DJANGO_CONFIGURATION"] = "Backoffice"
-        run_server(8000)
+        with _with_frontend():
+            run_server(8000)
