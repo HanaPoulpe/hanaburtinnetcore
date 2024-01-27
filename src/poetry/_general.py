@@ -9,7 +9,7 @@ from . import _utils as utils
 
 @utils.sub_command_wrapper
 def build_frontend(set_watcher_mode: bool = False) -> None:
-    watcher = "start" if set_watcher_mode else "watch"
+    watcher = "build" if set_watcher_mode else "watch"
     subprocess.run(
         ("npm", "run", watcher),
         cwd=os.path.join(utils.SRC_DIR, "queenbees/interfaces/backoffice/static_src"),
