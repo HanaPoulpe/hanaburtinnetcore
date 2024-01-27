@@ -15,6 +15,7 @@ services:
       - "CORE_DATABASE_USER=postgres"
       - "CORE_DATABASE_PASSWORD=postgres"
       - "CORE_DATABASE_PORT=5432"
+      - "LOCALDEV=true"
     depends_on:
       - db
   db:
