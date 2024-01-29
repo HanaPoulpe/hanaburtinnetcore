@@ -1,7 +1,7 @@
  /* The navigation menu */
 .navbar {
   overflow: hidden;
-  background-color: var(--background-secondary);
+  background-color: var(--background-accent);
   height: 100%;
   width: 200px;
   position: fixed;
