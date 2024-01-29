@@ -1,0 +1,33 @@
+.content-body table {
+    border-collapse: collapse;
+    width: 90%;
+
+    thead {
+        background-color: var(--background-accent);
+
+        th {
+            font-weight: bolder;
+            text-decoration: underline;
+            color: var(--font-color-title);
+
+            padding: 0.75rem;
+            border-style: solid;
+            border-width: 0.1rem;
+            border-color: var(--secondary);
+        }
+    }
+
+    tr {
+        td {
+            padding: 0.5rem;
+            border-style: solid;
+            border-width: 0.1rem;
+            border-color: var(--secondary);
+        }
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--background-secondary);
+        color: var(--font-color-secondary)
+    }
+}
