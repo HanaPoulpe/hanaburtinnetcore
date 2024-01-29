@@ -10,10 +10,11 @@
   --primary: #bc76d4;
   --secondary: #8C37AA;
   --background: #56396b;
-  --background-secondary: #241936;
+  --background-secondary: #382952;
   --background-accent: #3a1a57;
   --font-color: #C3F8E8;
-  --font-color-title: #78b3a2;
+  --font-color-secondary: #a0e7d3;
+  --font-color-title: #72fad3;
 }
 
 body {
