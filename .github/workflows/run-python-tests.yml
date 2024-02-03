@@ -36,17 +36,17 @@ jobs:
       CORE_DATABASE_PORT: "5432"
 
     steps:
+      - name: Install git
+        run: apt update && apt install git -y
+
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Changed files
         id: changed-files
-        uses: platinummonkey/changed-files@v1
+        uses: tj-actions/changed-files@v42
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          only_file_patterns: |
-            .*\.py
-          separator: " "
+          files: '**/*.py'
 
       - run: touch src/.env
 
