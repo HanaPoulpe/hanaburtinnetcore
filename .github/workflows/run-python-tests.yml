@@ -41,9 +41,14 @@ jobs:
 
       - name: Changed files
         id: changed-files
-        uses: tj-actions/changed-files@v42
+        uses: platinummonkey/changed-files@v1
         with:
-          files: "**.py"
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          only_file_patterns: "**.py"
+          separator: " "
+          filter_by_status: |
+            added
+            modified
 
       - run: touch src/.env
 
