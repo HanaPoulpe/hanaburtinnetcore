@@ -136,7 +136,7 @@ import-linter = "^2.0"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.2"
-black = "^23.12.1"
+black = "^24.1.1"
 mypy ="^1.7.1"
 django-stubs = "^4.2.7"
 pytest = "^7.4.4"
