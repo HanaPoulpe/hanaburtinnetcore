@@ -44,7 +44,8 @@ jobs:
         uses: platinummonkey/changed-files@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          only_file_patterns: "**.py"
+          only_file_patterns: |
+            .*\.py
           separator: " "
           filter_by_status: |
             added
