@@ -36,6 +36,9 @@ jobs:
       CORE_DATABASE_PORT: "5432"
 
     steps:
+      - name: Install git
+        run: apt install git
+
       - name: Checkout
         uses: actions/checkout@v4
 
