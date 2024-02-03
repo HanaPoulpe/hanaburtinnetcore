@@ -47,9 +47,6 @@ jobs:
           only_file_patterns: |
             .*\.py
           separator: " "
-          filter_by_status: |
-            added
-            modified
 
       - run: touch src/.env
 
@@ -68,12 +65,15 @@ jobs:
         working-directory: src/queenbees/interfaces/backoffice/static_src
 
       - name: Run python typing
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         run: poetry run python-type-checker ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Run python isort
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         run: poetry run python-linter-isort --check ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Run black
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
         run: poetry run python-linter-black --check ${{ steps.changed-files.outputs.all_changed_files }}
 
       - name: Run import-linter
