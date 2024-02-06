@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block body %}
+    <div>
+        <div><h4>Title:</h4> {{ object.name }}</div>
+        <div><h4>Creation date: </h4> {{ object.created_at }}</div>
+        <div><h4>Last updated date: </h4>{{ object.updated_at }}</div>
+        {% if object.created_by %}<div><h4>Author: </h4{{ object.created_by }}></div>{% endif %}
+        {% if object.updated_by %}<div><h4>Last updated by: </h4>{{ object.updated_by }}</div>{% endif %}
+        <div><h4>Status: </h4>{{ object.status }}</div>
+        {% if object.is_published %}<div><h4>Published at: </h4>{{ object.published_at }}</div>{% endif %}
+        {% if object.is_redacted %}<div><h4>Redacted at: </h4>{{ object.redacted_at }}</div>{% endif %}
+    </div>
+    <iframe>
+        {{ object.content }}
+    </iframe>
+{% endblock %}

@@ -1,3 +1,3 @@
-__all__ = ["ArticleList"]
+__all__ = ["ArticleList", "ArticleView"]
 
-from ._article import ArticleList
+from ._article import ArticleList, ArticleView

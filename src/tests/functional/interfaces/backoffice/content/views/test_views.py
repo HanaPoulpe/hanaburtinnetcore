@@ -25,3 +25,18 @@ class TestArticleList:
 
         assert response.status_code == 200
         assert article.name in response.content.decode()
+
+
+class TestArticleDetails:
+    @pytest.mark.django_db
+    def test_view(
+        self,
+        client_with_article_permission: django_test.Client,
+        article: content_models.Article,
+    ) -> None:
+        response = client_with_article_permission.get(
+            urls.reverse("article-view", kwargs={"id": article.id})
+        )
+
+        assert response.status_code == 200
+        assert article.name in response.content.decode()
