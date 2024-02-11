@@ -50,8 +50,31 @@ jobs:
           PR_URL: ${{github.event.pull_request.html_url}}
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+  commit-linter:
+    runs-on: ubuntu-latest
+    needs: remove-auto-merge
+    if: ${{ github.event.pull_request.user.login != 'dependabot[bot]' }}
+    steps:
+      - uses: actions/github-script@v7
+        name: Check commit messages
+        with:
+          script: |
+            const commitsURL = '${{ github.event.pull_request.commits_url }}';
+            const commits = await github.request(commitsURL);
+            var hasErrors = false;
+            for (commit of commits.data) {
+              if (commit.commit.message.split(':')[3] && commit.commit.message.split(':')[3] != ' ') {
+                console.log('✔️: ' + commit.commit.message)
+              } else {
+                console.log('❌: ' + commit.commit.message)
+                hasErrors = true;
+              }
+            }
+            if (hasErrors) throw 'Invalid commit message';
+
   owner-auto-review:
     runs-on: ubuntu-latest
+    needs: commit-linter
     if: ${{ github.event.pull_request.user.login == github.repository_owner }}
     steps:
       - name: Approve changes
