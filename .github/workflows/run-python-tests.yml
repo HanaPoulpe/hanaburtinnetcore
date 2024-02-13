@@ -9,7 +9,96 @@ on:
       - main
 
 jobs:
-  python-tests:
+  # Linters
+  run-linter-black:
+    name: "Python linter: Black"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: '**/*.py'
+
+      - name: Run black
+        id: python-linter-black
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
+        run: poetry run python-linter-black --check ${{ steps.changed-files.outputs.all_changed_files }}
+
+  run-linter-isort:
+    name: "Python linter: ISort"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: '**/*.py'
+
+      - name: Run python isort
+        id: python-linter-isort
+        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
+        run: poetry run python-linter-isort --check ${{ steps.changed-files.outputs.all_changed_files }}
+
+  run-python-type-checker:
+    name: "Python type checker"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    env:
+      DJANGO_CONFIGURATION: "Base"
+      DJANGO_SETTINGS_MODULE: "queenbees.settings"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v42
+        with:
+          files: '**/*.py'
+
+      - name: Run python type checker
+        id: python-type-checker
+        run: poetry run python-type-checker ${{ steps.changed-files.outputs.all_changed_files }}
+
+  run-python-import-linter:
+    name: "Python import linter"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    env:
+      DJANGO_CONFIGURATION: "Base"
+      DJANGO_SETTINGS_MODULE: "queenbees.settings"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Run import-linter
+        id: python-import-linter
+        run: poetry run python-import-linter
+
+  # Tests
+  run-python-tests-unit:
+    name: "Python unit tests"
     runs-on: "ubuntu-latest"
     container: "python:3.11-slim-bookworm"
     services:
@@ -27,63 +116,131 @@ jobs:
           --health-retries 5
 
     env:
-      DJANGO_CONFIGURATION: "Base"
       DJANGO_SETTINGS_MODULE: "queenbees.settings"
       CORE_DATABASE_NAME: "postgres"
       CORE_DATABASE_HOST: "postgres"
       CORE_DATABASE_USER: "postgres"
       CORE_DATABASE_PASSWORD: "postgres"
       CORE_DATABASE_PORT: "5432"
-
     steps:
-      - name: Install git
-        run: apt update && apt install git -y
-
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
-        with:
-          files: '**/*.py'
-
-      - run: touch src/.env
-
-      - name: Install dependencies
-        run: |
-          pip install poetry
-          poetry install
-
-      - name: Install npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Build webpack
-        run: npm install && npm run build
-        working-directory: src/queenbees/interfaces/backoffice/static_src
-
-      - name: Run python typing
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
-        run: poetry run python-type-checker ${{ steps.changed-files.outputs.all_changed_files }}
-
-      - name: Run python isort
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
-        run: poetry run python-linter-isort --check ${{ steps.changed-files.outputs.all_changed_files }}
-
-      - name: Run black
-        if: ${{ steps.changed-files.outputs.any_changed == 'true' }}
-        run: poetry run python-linter-black --check ${{ steps.changed-files.outputs.all_changed_files }}
-
-      - name: Run import-linter
-        run: poetry run python-import-linter
+      - uses: "./.github/actions/build"
+        name: Build
 
       - name: Run Unit tests
+        id: python-tests-unit
         run: poetry run python-tests-unit
 
+  run-python-tests-interface-agnostic:
+    name: "Python interface agnostic tests"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    services:
+      postgres:
+        image: "postgres:15"
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        # Ensure Postgres is available
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DJANGO_SETTINGS_MODULE: "queenbees.settings"
+      CORE_DATABASE_NAME: "postgres"
+      CORE_DATABASE_HOST: "postgres"
+      CORE_DATABASE_USER: "postgres"
+      CORE_DATABASE_PASSWORD: "postgres"
+      CORE_DATABASE_PORT: "5432"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
       - name: Run interface agnostic tests
+        id: python-tests-interface-agnostic
         run: poetry run python-tests-interface-agnostic
 
+  run-python-tests-backoffice:
+    name: "Python backoffice tests"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    services:
+      postgres:
+        image: "postgres:15"
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        # Ensure Postgres is available
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DJANGO_SETTINGS_MODULE: "queenbees.settings"
+      CORE_DATABASE_NAME: "postgres"
+      CORE_DATABASE_HOST: "postgres"
+      CORE_DATABASE_USER: "postgres"
+      CORE_DATABASE_PASSWORD: "postgres"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
       - name: Run backoffice tests
+        id: python-tests-backoffice
         run: poetry run python-tests-backoffice
+
+  # Complete workflow
+  python-tests:
+    runs-on: "ubuntu-latest"
+    name: "Python tests: OK"
+    if: ${{ always() }}
+    needs:
+      - run-linter-black
+      - run-linter-isort
+      - run-python-type-checker
+      - run-python-import-linter
+      - run-python-tests-unit
+      - run-python-tests-interface-agnostic
+      - run-python-tests-backoffice
+    env:
+      RESULTS: |
+        ${{ needs.run-linter-black.result }}
+        ${{ needs.run-linter-isort.result }}
+        ${{ needs.run-python-type-checker.result }}
+        ${{ needs.run-python-import-linter.result }}
+        ${{ needs.run-python-tests-unit.result }}
+        ${{ needs.run-python-tests-interface-agnostic.result }}
+        ${{ needs.run-python-tests-backoffice.result }}
+
+    steps:
+      - name: Tests results
+        id: tests-results
+
+        run: |
+          echo $RESULTS
+          for r in $RESULTS
+          do
+            if [ $r = "success" ];
+            then
+              true
+            else
+              echo "Some tests failed"
+              exit 1
+            fi
+          done
+          echo "All tests passed"

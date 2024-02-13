@@ -1,0 +1,32 @@
+name: "Build application"
+description: "Builds the application"
+
+runs:
+  using: "composite"
+
+  steps:
+  - name: Install git
+    shell: bash
+    run: apt update && apt install git -y
+
+  - name: Checkout
+    uses: actions/checkout@v4
+
+  - run: touch src/.env
+    shell: bash
+
+  - name: Install dependencies
+    shell: bash
+    run: |
+      pip install poetry
+      poetry install
+
+  - name: Install npm
+    uses: actions/setup-node@v4
+    with:
+      node-version: "20"
+
+  - name: Build webpack
+    shell: bash
+    run: npm install && npm run build
+    working-directory: src/queenbees/interfaces/backoffice/static_src
