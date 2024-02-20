@@ -9,8 +9,9 @@ on:
       - main
 
 jobs:
-  js-tests:
+  run-js-eslint:
     runs-on: "ubuntu-latest"
+    name: "JS Linter"
     container: "python:3.11-bookworm"
     services:
       postgres:
@@ -39,18 +40,81 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - run: touch src/.env
+      - uses: "./.github/actions/build"
+        name: Build
 
-      - name: Install npm
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
-      - name: Install dependencies
+      - name: Install extra dependencies
         run: npm ci
 
       - name: Run eslint
         uses: eslint/github-action@v0
 
+  run-js-tests:
+    runs-on: "ubuntu-latest"
+    name: "JS Tests"
+    container: "python:3.11-bookworm"
+    services:
+      postgres:
+        image: "postgres:15"
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        # Ensure Postgres is available
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DJANGO_CONFIGURATION: "Base"
+      DJANGO_SETTINGS_MODULE: "queenbees.settings"
+      CORE_DATABASE_NAME: "postgres"
+      CORE_DATABASE_HOST: "postgres"
+      CORE_DATABASE_USER: "postgres"
+      CORE_DATABASE_PASSWORD: "postgres"
+      CORE_DATABASE_PORT: "5432"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Install extra dependencies
+        run: npm ci
+
       - name: Run JS tests
         run: npm test
+
+  js-tests:
+    runs-on: "ubuntu-latest"
+    name: "JS tests: OK"
+    if: ${{ always() }}
+    needs:
+      - run-js-eslint
+      - run-js-tests
+    env:
+      RESULTS: |
+        ${{ needs.run-js-eslint.result }}
+        ${{ needs.run-js-tests.result }}
+
+    steps:
+      - name: Tests results
+        id: tests-results
+
+        run: |
+          echo $RESULTS
+          for r in $RESULTS
+          do
+            if [ $r = "success" ];
+            then
+              true
+            else
+              echo "Some tests failed"
+              exit 1
+            fi
+          done
+          echo "All tests passed"
