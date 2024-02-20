@@ -14,6 +14,7 @@ jobs:
     name: "Python linter: Black"
     runs-on: "ubuntu-latest"
     container: "python:3.11-slim-bookworm"
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -36,6 +37,7 @@ jobs:
     name: "Python linter: ISort"
     runs-on: "ubuntu-latest"
     container: "python:3.11-slim-bookworm"
+    if: ${{ github.event_name == 'pull_request' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,6 +60,7 @@ jobs:
     name: "Python type checker"
     runs-on: "ubuntu-latest"
     container: "python:3.11-slim-bookworm"
+    if: ${{ github.event_name == 'pull_request' }}
     env:
       DJANGO_CONFIGURATION: "Base"
       DJANGO_SETTINGS_MODULE: "queenbees.settings"
@@ -235,7 +238,7 @@ jobs:
           echo $RESULTS
           for r in $RESULTS
           do
-            if [ $r = "success" ];
+            if [ $r = "success" ] || [ $r = "skipped" ];
             then
               true
             else
