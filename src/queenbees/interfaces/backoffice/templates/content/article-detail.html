@@ -16,7 +16,8 @@
             {% if object.is_redacted %}<div><h4>Redacted at: </h4>{{ object.redacted_at }}</div>{% endif %}
         </div>
 
-        <iframe class="preview-frame" style="width: 78%" content="{{ object.content }}">
-        </iframe>
+        <div class="preview-frame" style="width: 78%">
+            {{ object.content }}
+        </div>
     </div>
 {% endblock %}
