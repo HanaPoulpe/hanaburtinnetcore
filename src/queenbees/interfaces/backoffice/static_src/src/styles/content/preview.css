@@ -1,0 +1,6 @@
+.preview-frame {
+    border: 1px solid var(--background-accent);
+    background-color: var(--background);
+;
+    height: 100%;
+}

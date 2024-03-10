@@ -1,0 +1,24 @@
+div.card {
+    background-color: var(--background-secondary);
+    display: flex;
+    flex-direction: column;
+    float: right;
+    position: relative;
+
+    div {
+        margin: 0.5rem;
+        padding: 0.5rem;
+        border: 0.1rem solid var(--background-accent);
+
+        text-align: right;
+
+        h4 {
+            text-align: left;
+            color: var(--font-color-title);
+            margin: 0;
+            padding: 0 0 0.5rem 0;
+            font-weight: bold;
+            line-height: 1.2rem;
+        }
+    }
+}

@@ -5,6 +5,8 @@
 @import "https://fonts.googleapis.com/css?family=Share+Tech+Mono:400";
 @import "navbar.css";
 @import "tables.css";
+@import "cards.css";
+@import "content/preview.css";
 
 /* General styling */
 :root {
