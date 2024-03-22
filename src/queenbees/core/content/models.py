@@ -1,9 +1,11 @@
 import uuid
+from typing import Self
 
 from django.conf import settings
 from django.contrib.auth import models as auth_models
 from django.db import models
 
+from queenbees.core import models as core_models
 from queenbees.utils import localtime
 
 
@@ -19,20 +21,8 @@ class FileSourceTypes(models.TextChoices):
 
 
 # Models #
-class GenericContent(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
-    name = models.CharField(max_length=100, blank=False, null=False, unique=True)
-
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-        blank=False,
-        null=False,
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        blank=False,
-        null=False,
-    )
+class GenericContent(core_models.TimeStampedMixin, core_models.UUIDIdentifierMixin, models.Model):
+    name: models.CharField = models.CharField(max_length=100, blank=False, null=False, unique=True)
 
     created_by = models.ForeignKey(
         auth_models.User, on_delete=models.PROTECT, null=True, related_name="created_+"
@@ -115,3 +105,40 @@ class File(GenericContent):
     @property
     def public_url(self) -> str:
         return self.external_location or settings.BROKEN_MEDIA_URL  # type: ignore
+
+
+class ArticleDraftQuerySet(models.QuerySet["ArticleDraft"]):
+    def expired(self) -> Self:
+        return self.filter(
+            updated_at__lte=localtime.now() - localtime.timedelta(days=settings.DRAFT_EXPIRY_DAYS)
+        )
+
+
+class ArticleDraft(core_models.TimeStampedMixin, models.Model):
+    id = models.AutoField(primary_key=True, editable=False, unique=True)
+
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="drafts")
+
+    working_user: auth_models.User = models.ForeignKey(auth_models.User, on_delete=models.CASCADE)
+
+    new_attributes = models.JSONField(null=False)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=["updated_at"]),
+            models.Index(fields=["article", "working_user"]),
+        ]
+
+    objects = ArticleDraftQuerySet.as_manager()
+
+    @property
+    def expiry_date(self) -> localtime.datetime:
+        return self.updated_at + localtime.timedelta(days=settings.DRAFT_EXPIRY_DAYS)
+
+    @property
+    def is_expired(self) -> bool:
+        return self.expiry_date <= localtime.now()
+
+    def set_attributes(self, new_attributes: dict) -> None:
+        self.new_attributes = new_attributes
+        self.save()
