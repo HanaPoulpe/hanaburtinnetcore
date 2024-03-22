@@ -143,3 +143,4 @@ class Base(Configuration):
 
     # Content management
     BROKEN_MEDIA_URL = ""
+    DRAFT_EXPIRY_DAYS: int = 30
