@@ -71,15 +71,9 @@ jobs:
       - uses: "./.github/actions/build"
         name: Build
 
-      - name: Changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v43
-        with:
-          files: '**/*.py'
-
       - name: Run python type checker
         id: python-type-checker
-        run: poetry run python-type-checker ${{ steps.changed-files.outputs.all_changed_files }}
+        run: poetry run python-type-checker
 
   run-python-import-linter:
     name: "Python import linter"
