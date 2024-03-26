@@ -31,12 +31,14 @@ warn_redundant_casts = true
 warn_unreachable = true
 warn_incomplete_stub = true
 ignore_missing_imports = true
+strict_optional = true
 plugins = [
     "./src/configurations_mypy_django_plugin.py"
 ]
 
 [tool.django-stubs]
 django_settings_module = "queenbees.settings"
+strict_settings = false
 
 [tool.flake8]
 per-file-ignores = [

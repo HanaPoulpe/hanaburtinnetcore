@@ -7,6 +7,8 @@ import time_machine
 from queenbees.core.content import models
 from queenbees.core.content import operations as content_operations
 from queenbees.utils import localtime, operations
+from tests.factories import content as content_factories
+from tests.types import ArticleDraftFixture
 
 
 class TestArticleOperations:
@@ -96,6 +98,47 @@ class TestArticleOperations:
         assert article.updated_at == localtime.now()
 
     @pytest.mark.django_db
+    def test_update_article_from_draft(
+        self,
+        article_draft: ArticleDraftFixture,
+    ) -> None:
+        article = content_operations.update_article(
+            user=None,
+            article=article_draft.article,
+            draft=article_draft.draft,
+        )
+
+        assert article.content == article_draft.draft.new_attributes["content"]
+        assert article.format == article_draft.draft.new_attributes["format"]
+        assert article.name == article_draft.draft.new_attributes["name"]
+
+    @pytest.mark.django_db
+    def test_update_wrong_article_from_draft(
+        self,
+        article: models.Article,
+        article_draft: ArticleDraftFixture,
+    ) -> None:
+        with pytest.raises(content_operations.ConflictingParametersError):
+            content_operations.update_article(
+                user=None,
+                article=article,
+                draft=article_draft.draft,
+            )
+
+    @pytest.mark.django_db
+    def test_update_article_with_conflicting_parameters(
+        self,
+        article_draft: ArticleDraftFixture,
+    ) -> None:
+        with pytest.raises(content_operations.ConflictingParametersError):
+            content_operations.update_article(
+                user=None,
+                article=article_draft.article,
+                draft=article_draft.draft,
+                content="Shouldn't be here!",
+            )
+
+    @pytest.mark.django_db
     @pytest.mark.parametrize(
         "content_format",
         [models.TextFormats.PLAIN_TEXT, models.TextFormats.HTML, models.TextFormats.MARKDOWN],
@@ -183,3 +226,19 @@ class TestArticleOperations:
                 article=published_article,
                 redaction_date=long_past,
             )
+
+
+class TestDraftOperations:
+    @pytest.fixture(autouse=True)
+    def set_time(self, time_machine: time_machine.TimeMachineFixture) -> None:
+        time_machine.move_to("2024-03-19 00:00:00", tick=False)
+
+    @pytest.mark.django_db
+    def test_clean_content_drafts(
+        self,
+        expired_article_draft: ArticleDraftFixture,
+    ) -> None:
+        content_operations.clean_content_drafts()
+
+        draft_count = models.ArticleDraft.objects.all().count()
+        assert draft_count == 0
