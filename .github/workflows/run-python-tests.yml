@@ -93,6 +93,21 @@ jobs:
         id: python-import-linter
         run: poetry run python-import-linter
 
+  run-python-lock-check:
+    name: "Checking poetry.lock"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Run poetry check
+        id: python-poetry-lock-check
+        run: poetry lock --check
+
   # Tests
   run-python-tests-unit:
     name: "Python unit tests"
@@ -214,6 +229,7 @@ jobs:
       - run-python-tests-unit
       - run-python-tests-interface-agnostic
       - run-python-tests-backoffice
+      - run-python-lock-check
     env:
       RESULTS: |
         ${{ needs.run-linter-black.result }}
@@ -223,6 +239,7 @@ jobs:
         ${{ needs.run-python-tests-unit.result }}
         ${{ needs.run-python-tests-interface-agnostic.result }}
         ${{ needs.run-python-tests-backoffice.result }}
+        ${{ needs.run-python-lock-check.result }}
 
     steps:
       - name: Tests results
