@@ -49,6 +49,39 @@ jobs:
       - name: Run eslint
         uses: eslint/github-action@v0
 
+  run-npm-lock-check:
+    runs-on: "ubuntu-latest"
+    name: "NPM Lock Check"
+    container: "python:3.11-bookworm"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Locate packages.json files
+        run: |
+          export JSON_PATHS=$(ls | sed 's/\(.*\)\/package.json/\1/g')
+
+          for p in $JSON_PATHS
+          do
+            echo Checking $p
+            npm ci
+            if [ $? = 0 ];
+            then
+              echo $p is valid
+            else
+              echo $p is not valid
+              exit 1
+            fi
+          done
+          echo All package-lock.json are good
+
+      - name: Run eslint
+        uses: eslint/github-action@v0
+
   run-js-tests:
     runs-on: "ubuntu-latest"
     name: "JS Tests"
@@ -100,6 +133,7 @@ jobs:
       RESULTS: |
         ${{ needs.run-js-eslint.result }}
         ${{ needs.run-js-tests.result }}
+        ${{ needs.run-npm-lock-check.result }}
 
     steps:
       - name: Tests results
