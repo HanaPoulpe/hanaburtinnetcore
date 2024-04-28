@@ -134,6 +134,7 @@ jobs:
       CORE_DATABASE_USER: "postgres"
       CORE_DATABASE_PASSWORD: "postgres"
       CORE_DATABASE_PORT: "5432"
+      DJANGO_SECRET_KEY: "testSecretKey"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -170,6 +171,7 @@ jobs:
       CORE_DATABASE_USER: "postgres"
       CORE_DATABASE_PASSWORD: "postgres"
       CORE_DATABASE_PORT: "5432"
+      DJANGO_SECRET_KEY: "testSecretKey"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -204,6 +206,7 @@ jobs:
       CORE_DATABASE_HOST: "postgres"
       CORE_DATABASE_USER: "postgres"
       CORE_DATABASE_PASSWORD: "postgres"
+      DJANGO_SECRET_KEY: "testSecretKey"
 
     steps:
       - name: Checkout
