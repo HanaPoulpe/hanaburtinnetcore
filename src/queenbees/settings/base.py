@@ -9,10 +9,13 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+
 import os
 from pathlib import Path
 
 from configurations import Configuration
+
+from queenbees.utils import environ
 
 
 class Base(Configuration):
@@ -25,7 +28,7 @@ class Base(Configuration):
     # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = "django-insecure-40og6y8-nhuh+i#6s%8k_i8o!9im-nt_xc7zvq10gy%25l6_6r"
+    SECRET_KEY = environ.get_str("DJANGO_SECRET_KEY")
 
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
@@ -82,11 +85,11 @@ class Base(Configuration):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("CORE_DATABASE_NAME"),
-            "USER": os.getenv("CORE_DATABASE_USER"),
-            "PASSWORD": os.getenv("CORE_DATABASE_PASSWORD"),
-            "HOST": os.getenv("CORE_DATABASE_HOST"),
-            "PORT": os.getenv("CORE_DATABASE_PORT"),
+            "NAME": environ.get_str("CORE_DATABASE_NAME"),
+            "USER": environ.get_str("CORE_DATABASE_USER"),
+            "PASSWORD": environ.get_str("CORE_DATABASE_PASSWORD"),
+            "HOST": environ.get_str("CORE_DATABASE_HOST"),
+            "PORT": environ.get_int("CORE_DATABASE_PORT"),
             "TEST": {
                 "NAME": "tests_core",
             },
@@ -120,7 +123,7 @@ class Base(Configuration):
 
     LANGUAGE_CODE = "en-us"
 
-    TIME_ZONE = "UTC"
+    TIME_ZONE = environ.get_str("TIMEZONE", "UTC")
 
     USE_I18N = True
 

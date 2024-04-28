@@ -133,6 +133,7 @@ python-webpack-boilerplate = "^1.0.2"
 nvshim = "^1.1.2"
 faker = "^24.11.0"
 import-linter = "^2.0"
+environs = "^11.0.0"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.2"
