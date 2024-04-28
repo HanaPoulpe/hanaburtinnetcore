@@ -85,11 +85,11 @@ class Base(Configuration):
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.getenv("CORE_DATABASE_NAME"),
-            "USER": os.getenv("CORE_DATABASE_USER"),
-            "PASSWORD": os.getenv("CORE_DATABASE_PASSWORD"),
-            "HOST": os.getenv("CORE_DATABASE_HOST"),
-            "PORT": os.getenv("CORE_DATABASE_PORT"),
+            "NAME": environ.get_str("CORE_DATABASE_NAME"),
+            "USER": environ.get_str("CORE_DATABASE_USER"),
+            "PASSWORD": environ.get_str("CORE_DATABASE_PASSWORD"),
+            "HOST": environ.get_str("CORE_DATABASE_HOST"),
+            "PORT": environ.get_int("CORE_DATABASE_PORT"),
             "TEST": {
                 "NAME": "tests_core",
             },
@@ -123,7 +123,7 @@ class Base(Configuration):
 
     LANGUAGE_CODE = "en-us"
 
-    TIME_ZONE = "UTC"
+    TIME_ZONE = environ.get_str("TIMEZONE", "UTC")
 
     USE_I18N = True
 
