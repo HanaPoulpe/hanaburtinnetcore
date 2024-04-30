@@ -38,3 +38,13 @@ class Backoffice(base.Base):
     ]
 
     ROOT_URLCONF = "queenbees.interfaces.backoffice.urls"
+
+
+class Api(base.Base):
+    @property
+    def INSTALLED_APPS(self) -> list[str]:  # type: ignore[override]
+        return base.Base.INSTALLED_APPS + [
+            "graphene_django",
+        ]
+
+    ROOT_URLCONF = "queenbees.interfaces.api.urls"

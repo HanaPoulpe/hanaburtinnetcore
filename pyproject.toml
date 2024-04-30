@@ -104,6 +104,7 @@ python-tests-all = "poetry:run_all_python_tests"
 python-tests-unit = "poetry:run_unit_tests"
 python-tests-interface-agnostic = "poetry:run_interface_agnostic_tests"
 python-tests-backoffice = "poetry:run_backoffice_tests"
+python-tests-api = "poetry:run_api_tests"
 
 # Frontend
 frontend-build = "poetry:build_frontend"
@@ -114,6 +115,7 @@ js-tests = "poetry:run_js_tests"
 
 # Servers
 backoffice-start = "poetry:run_backoffice_server"
+api-start = "poetry:run_api_server"
 createsuperuser = "poetry:create_superuser"
 
 # Docker
@@ -137,6 +139,7 @@ faker = "^24.11.0"
 import-linter = "^2.0"
 environs = "^11.0.0"
 graphene = "^3.3"
+graphene-django = "^3.2.1"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.2"

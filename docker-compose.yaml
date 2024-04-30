@@ -19,6 +19,26 @@ services:
       - "LOCALDEV=true"
     depends_on:
       - db
+
+  api:
+    build: .
+    ports:
+      - "8001:8001"
+    command: poetry run api-start
+    volumes:
+      - .:/src
+    environment:
+      - "DJANGO_SETTINGS_MODULE=localdev.settings"
+      - "DJANGO_CONFIGURATION=Backoffice"
+      - "CORE_DATABASE_NAME=postgres"
+      - "CORE_DATABASE_HOST=db"
+      - "CORE_DATABASE_USER=postgres"
+      - "CORE_DATABASE_PASSWORD=postgres"
+      - "CORE_DATABASE_PORT=5432"
+      - "LOCALDEV=true"
+    depends_on:
+      - db
+
   db:
     image: postgres:15
     ports:

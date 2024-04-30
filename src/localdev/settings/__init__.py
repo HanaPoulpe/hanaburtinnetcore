@@ -1,4 +1,4 @@
-__all__ = ["Backoffice", "Base"]
+__all__ = ["Backoffice", "Base", "Api"]
 
 from ._base import Base
-from ._interfaces import Backoffice
+from ._interfaces import Api, Backoffice

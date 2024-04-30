@@ -1,5 +1,5 @@
-__all__ = ["BaseTest", "UnitTest", "InterfaceAgnostic", "Backoffice"]
+__all__ = ["BaseTest", "UnitTest", "InterfaceAgnostic", "Backoffice", "Api"]
 
 from ._base import BaseTest, UnitTest
-from ._interfaces import Backoffice
+from ._interfaces import Api, Backoffice
 from ._mixins import InterfaceAgnostic

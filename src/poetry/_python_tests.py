@@ -61,6 +61,10 @@ def run_backoffice_tests() -> None:
     run_python_tests(TestSuites.BACKOFFICE_TESTS[0], "Backoffice")
 
 
+def run_api_tests() -> None:
+    run_python_tests(TestSuites.API_TESTS[0], "Api")
+
+
 def _resolve_tests_for_file(filename: str) -> set[Callable[[], None]]:
     found_tests = set[Callable[[], None]]()
     for suite in dir(TestSuites):
@@ -99,6 +103,7 @@ def run_all_python_tests() -> None:
         TestSuites.UNIT_TESTS[1],
         TestSuites.INTERFACE_AGNOSTIC_TESTS[1],
         TestSuites.BACKOFFICE_TESTS[1],
+        TestSuites.API_TESTS[1],
     )
     for test in all_tests:
         try:
@@ -116,4 +121,8 @@ class TestSuites:
     BACKOFFICE_TESTS = (
         _add_common_tests("backoffice") | INTERFACE_AGNOSTIC_TESTS[0],
         run_backoffice_tests,
+    )
+    API_TESTS = (
+        _add_common_tests("api") | INTERFACE_AGNOSTIC_TESTS[0],
+        run_api_tests,
     )

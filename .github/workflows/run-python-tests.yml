@@ -219,6 +219,42 @@ jobs:
         id: python-tests-backoffice
         run: poetry run python-tests-backoffice
 
+  run-python-tests-api:
+    name: "Python API tests"
+    runs-on: "ubuntu-latest"
+    container: "python:3.11-slim-bookworm"
+    services:
+      postgres:
+        image: "postgres:15"
+        ports:
+          - 5432/tcp
+        env:
+          POSTGRES_PASSWORD: "postgres"
+        # Ensure Postgres is available
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DJANGO_SETTINGS_MODULE: "queenbees.settings"
+      CORE_DATABASE_NAME: "postgres"
+      CORE_DATABASE_HOST: "postgres"
+      CORE_DATABASE_USER: "postgres"
+      CORE_DATABASE_PASSWORD: "postgres"
+      DJANGO_SECRET_KEY: "testSecretKey"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: "./.github/actions/build"
+        name: Build
+
+      - name: Run PAI tests
+        id: python-tests-api
+        run: poetry run python-tests-api
+
   # Complete workflow
   python-tests:
     runs-on: "ubuntu-latest"
@@ -232,6 +268,7 @@ jobs:
       - run-python-tests-unit
       - run-python-tests-interface-agnostic
       - run-python-tests-backoffice
+      - run-python-tests-api
       - run-python-lock-check
     env:
       RESULTS: |

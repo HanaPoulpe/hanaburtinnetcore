@@ -19,6 +19,10 @@ from queenbees.utils import environ
 
 
 class Base(Configuration):
+    # Other sites URLs
+    BACKOFFICE_URL = environ.get_str("BACKOFFICE_URL")
+    API_URL = environ.get_str("API_URL")
+
     # Build paths inside the project like this: BASE_DIR / 'subdir'.
     BASE_DIR = Path(__file__).resolve().parent.parent.parent
     INTERFACE_DIR = BASE_DIR.joinpath("queenbees", "interfaces")
@@ -144,3 +148,8 @@ class Base(Configuration):
     # Content management
     BROKEN_MEDIA_URL = ""
     DRAFT_EXPIRY_DAYS: int = 30
+
+    # APIs
+    GRAPHENE: dict[str, str] = {
+        "SCHEMA": "queenbees.interfaces.api.graphql.schema",
+    }
