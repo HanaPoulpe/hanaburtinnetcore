@@ -1,6 +1,6 @@
 from django import urls
 
-from queenbees.core import urls as core_urls
+from queenbees.core.interfaces import urls as core_urls
 from queenbees.interfaces.backoffice.content import urls as content_urls
 
 from . import views as bo_views

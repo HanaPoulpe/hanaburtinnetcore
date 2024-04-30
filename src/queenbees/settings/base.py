@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from typing import Any
 
 from configurations import Configuration
 
@@ -49,6 +50,8 @@ class Base(Configuration):
         "django.contrib.messages",
         "django.contrib.staticfiles",
         "queenbees.core.content",
+        "health_check",
+        "health_check.db",
     ]
 
     MIDDLEWARE = [
@@ -61,7 +64,16 @@ class Base(Configuration):
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
     ]
 
-    ROOT_URLCONF = "queenbees.core.urls"
+    ROOT_URLCONF = "queenbees.core.interfaces.urls"
+
+    HEALTH_CHECK: dict[str, Any] = {
+        "DISK_USAGE_MIN": 90,
+        "MEMORY_MIN": 100,
+        "SUBSETS": {
+            "startup-probe": ["MigrationHealthCheck", "DatabaseBackend"],
+            "liveliness-probe": ["DatabaseBackend"],
+        },
+    }
 
     # Template settings
     TEMPLATE_DIRS = [INTERFACE_DIR.joinpath("common", "templates")]

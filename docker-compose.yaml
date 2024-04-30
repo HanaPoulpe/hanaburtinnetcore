@@ -19,6 +19,12 @@ services:
       - "LOCALDEV=true"
     depends_on:
       - db
+    healthcheck:
+      test: 'curl -v -X GET -H "Accept: application/json" http://localhost:8000/health || exit 1'
+      interval: 60s
+      retries: 5
+      start_period: 30s
+      timeout: 1s
 
   api:
     build: .
@@ -38,6 +44,12 @@ services:
       - "LOCALDEV=true"
     depends_on:
       - db
+    healthcheck:
+      test: 'curl -v -X GET -H "Accept: application/json" http://localhost:8000/health || exit 1'
+      interval: 60s
+      retries: 5
+      start_period: 30s
+      timeout: 1s
 
   db:
     image: postgres:15

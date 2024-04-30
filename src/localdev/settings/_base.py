@@ -1,4 +1,5 @@
 import uuid
+from typing import Any
 
 from queenbees import settings
 from queenbees.utils import environ
@@ -10,3 +11,10 @@ class Base(settings.Base):
 
     DEBUG = True
     SECRET_KEY = environ.get_str("DJANGO_SECRET_KEY", uuid.getnode().to_bytes(16, "big").hex())
+
+    HEALTH_CHECK: dict[str, Any] = {
+        "SUBSETS": {
+            "startup-probe": ["DatabaseBackend"],
+            "liveliness-probe": [],
+        }
+    }

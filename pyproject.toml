@@ -140,6 +140,7 @@ import-linter = "^2.0"
 environs = "^11.0.0"
 graphene = "^3.3"
 graphene-django = "^3.2.1"
+django-health-check = "^3.18.1"
 
 [tool.poetry.group.test.dependencies]
 isort = "^5.13.2"
