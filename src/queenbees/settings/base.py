@@ -39,6 +39,7 @@ class Base(Configuration):
     DEBUG = True
 
     ALLOWED_HOSTS: list[str] = []
+    REDIRECT_TO_LOGIN = False
 
     # Application definition
 
