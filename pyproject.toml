@@ -60,7 +60,9 @@ source_modules = [
 forbidden_modules = [
     "tests",
     "pytest",
-    "factory"
+    "factory",
+    "poetry",
+    "localdev"
 ]
 
 [[tool.importlinter.contracts]]
@@ -80,6 +82,14 @@ type = "layers"
 layers = [
     "queenbees.interfaces",
     "queenbees.core"
+]
+
+[[tool.importlinter.contracts]]
+name = "Queenbees interfaces independence"
+type = "independence"
+modules = [
+    "queenbees.interfaces.api",
+    "queenbees.interfaces.backoffice"
 ]
 
 [tool.pytest.ini_options]
