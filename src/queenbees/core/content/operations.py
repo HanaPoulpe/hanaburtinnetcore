@@ -15,6 +15,7 @@ class ConflictingParametersError(operations.OperationError):
     pass
 
 
+@operations.operation(atomic=True)
 def create_article(
     *,
     name: str,
