@@ -11,6 +11,10 @@ class DuplicateArticleError(operations.OperationError):
     pass
 
 
+class ConflictingParametersError(operations.OperationError):
+    pass
+
+
 def create_article(
     *,
     name: str,
@@ -57,6 +61,7 @@ def update_article(
     name: str | None = None,
     content_format: content_models.TextFormats | None = None,
     content: str | None = None,
+    draft: content_models.ArticleDraft | None = None,
 ) -> content_models.Article:
     """
     Update the article match.
@@ -66,8 +71,36 @@ def update_article(
     :param name: new article title
     :param content_format: new text format, if set, new content must be provided
     :param content: new article content
+    :param draft: existing draft object to use as source
     :return: updated article
     """
+    if (name or content_format or content) and draft:
+        raise ConflictingParametersError(
+            operation_name="update_article",
+            message="Cannot update article with both draft and specific values.",
+        )
+
+    if draft:
+        name = draft.new_attributes.get("name", None)
+        if not type(name) in (str, type(None)):
+            raise TypeError("Article name must be of type str or None.")
+
+        content_format = draft.new_attributes.get("format", None)
+        if content_format:
+            try:
+                content_format = content_models.TextFormats(content_format)
+            except KeyError:
+                raise ValueError("Invalid article format.")
+
+        content = draft.new_attributes.get("content", None)
+        if not type(content) in (str, type(None)):
+            raise TypeError("Article content must be of type str or None.")
+
+        if article != draft.article:
+            raise ConflictingParametersError(
+                operation_name="update_article", message="Draft is not related to the article."
+            )
+
     if content_format and not content:
         raise ValueError("Article format can't be changed without changing its content.")
 
@@ -165,3 +198,44 @@ def redact_article(
     article.save()
 
     return article
+
+
+@operations.operation(atomic=True)
+def clean_content_drafts() -> None:
+    """
+    Delete all content drafts that are older than settings.DRAFT_EXPIRY_DAYS.
+    """
+    content_models.ArticleDraft.objects.expired().delete()
+
+
+@operations.operation(atomic=True)
+def get_or_create_article_draft(
+    *,
+    content: content_models.GenericContent,
+    user: auth_models.User,
+) -> content_models.ArticleDraft:
+    """
+    Get or create a new content draft.
+
+    :param content: Content to create a draft for
+    :param user: User creating the draft
+    :return: the draft
+    :raise operations.OperationError: Impossible to create a draft with those data.
+    """
+    try:
+        try:
+            return content_models.ArticleDraft.objects.filter(
+                content=content,
+                created_by=user,
+            )
+        except content_models.ArticleDraft.DoesNotExist:
+            return content_models.ArticleDraft.objects.create(
+                content=content,
+                created_by=user,
+                new_attributes={},
+            )
+    except Exception as err:
+        raise operations.OperationError(
+            operation_name="get_or_create_draft",
+            message="Failed to create draft.",
+        ) from err
