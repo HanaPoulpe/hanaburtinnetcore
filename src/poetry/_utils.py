@@ -46,13 +46,11 @@ _T = TypeVar("_T")
 
 
 @overload
-def sub_command_wrapper(_fnc: Callable[_P, None]) -> Callable[_P, None]:
-    ...
+def sub_command_wrapper(_fnc: Callable[_P, None]) -> Callable[_P, None]: ...
 
 
 @overload
-def sub_command_wrapper() -> Callable[[Callable[_P, _T]], Callable[_P, _T]]:
-    ...
+def sub_command_wrapper() -> Callable[[Callable[_P, _T]], Callable[_P, _T]]: ...
 
 
 def sub_command_wrapper(
