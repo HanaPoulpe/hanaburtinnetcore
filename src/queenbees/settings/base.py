@@ -166,3 +166,4 @@ class Base(Configuration):
     GRAPHENE: dict[str, str] = {
         "SCHEMA": "queenbees.interfaces.api.graphql.schema",
     }
+    GRAPHENE_SHOW_ERRORS: bool = environ.get_bool("GRAPHENE_SHOW_ERRORS", False)
