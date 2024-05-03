@@ -169,7 +169,7 @@ class TestArticleOperations:
         article: models.Article,
         content_format: models.TextFormats,
     ) -> None:
-        with pytest.raises(ValueError):
+        with pytest.raises(content_operations.InvalidParametersError):
             content_operations.update_article(
                 user=None,
                 article=article,

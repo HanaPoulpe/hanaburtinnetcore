@@ -15,6 +15,10 @@ class ConflictingParametersError(operations.OperationError):
     pass
 
 
+class InvalidParametersError(operations.OperationError):
+    pass
+
+
 @operations.operation(atomic=True)
 def create_article(
     *,
@@ -103,7 +107,10 @@ def update_article(
             )
 
     if content_format and not content:
-        raise ValueError("Article format can't be changed without changing its content.")
+        raise InvalidParametersError(
+            operation_name="update_article",
+            message="Article format can't be changed without changing its content.",
+        )
 
     article.updated_by = user
     if name:
@@ -118,7 +125,7 @@ def update_article(
     except Exception as err:
         raise operations.OperationError(
             operation_name="update_article",
-            message="Failsed to update article.",
+            message="Failed to update article.",
         ) from err
     return article
 

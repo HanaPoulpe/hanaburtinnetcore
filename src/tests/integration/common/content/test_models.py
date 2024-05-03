@@ -3,6 +3,7 @@ import pytest
 import time_machine
 
 from queenbees.core.content import models, operations
+from tests import factories
 
 
 @attr.define(frozen=True)
@@ -73,3 +74,18 @@ class TestArticle:
     )
     def test_article_status(self, article_with_status: ArticleStatus) -> None:
         assert article_with_status.article.status == article_with_status.status
+
+
+class TestArticleDraft:
+    @pytest.mark.django_db
+    def change_article_name_to_duplicate(
+        self,
+        article_draft: models.ArticleDraft,
+        article: models.Article,
+    ) -> None:
+        with pytest.raises(models.ArticleDraft.ArticleNameAlreadyUsedException):
+            article_draft.set_attributes(
+                {
+                    "name": article.name,
+                }
+            )

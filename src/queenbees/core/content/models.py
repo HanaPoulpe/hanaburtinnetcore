@@ -1,5 +1,4 @@
-import uuid
-from typing import Self
+from typing import Any, Self
 
 from django.conf import settings
 from django.contrib.auth import models as auth_models
@@ -142,3 +141,16 @@ class ArticleDraft(core_models.TimeStampedMixin, models.Model):
     def set_attributes(self, new_attributes: dict) -> None:
         self.new_attributes = new_attributes
         self.save()
+
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        new_name = self.new_attributes.get("name")
+
+        if new_name and self.article.name != new_name:
+            duplicate_exists = Article.objects.filter(name=new_name).exists()
+            if duplicate_exists:
+                raise self.ArticleNameAlreadyUsedException()
+
+        super().save(*args, **kwargs)
+
+    class ArticleNameAlreadyUsedException(Exception):
+        pass

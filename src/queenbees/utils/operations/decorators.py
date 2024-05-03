@@ -32,15 +32,13 @@ def _selector(
 @overload
 def operation(
     *, atomic: bool = True, ignore_transactions: bool = False
-) -> Callable[[Callable[_P, _T]], Callable[_P, _T]]:
-    ...
+) -> Callable[[Callable[_P, _T]], Callable[_P, _T]]: ...
 
 
 @overload
 def operation(
     fnc: Callable[_P, _T], *, atomic: bool = True, ignore_transactions: bool = False
-) -> Callable[_P, _T]:
-    ...
+) -> Callable[_P, _T]: ...
 
 
 def operation(
