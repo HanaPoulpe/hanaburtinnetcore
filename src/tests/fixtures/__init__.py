@@ -7,8 +7,10 @@ __all__ = [
     "user_with_password",
     "expired_article_draft",
     "article_draft",
+    "graphql_client",
 ]
 
+from .clients import graphql_client
 from .content import (
     article,
     article_draft,
