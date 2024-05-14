@@ -13,23 +13,54 @@ from tests.types import ArticleDraftFixture
 
 
 @pytest.fixture
-def article() -> content_models.Article:
-    return content_factories.Article()
+def many_articles(request: pytest.FixtureRequest | None) -> list[content_models.Article]:
+    count: int = getattr(request, "param", 1)
+
+    return [content_factories.Article() for _ in range(count)]
 
 
 @pytest.fixture
-def published_article() -> content_models.Article:
-    return content_factories.Article(
-        published_at=localtime.now(),
-    )
+def article(many_articles: list[content_models.Article]) -> content_models.Article:
+    return many_articles[0]
 
 
 @pytest.fixture
-def redacted_article() -> content_models.Article:
-    return content_factories.Article(
-        published_at=localtime.yesterday(),
-        redacted_at=localtime.now(),
-    )
+def many_published_articles(request: pytest.FixtureRequest | None) -> list[content_models.Article]:
+    count: int = getattr(request, "param", 1)
+
+    return [
+        content_factories.Article(
+            published_at=localtime.now(),
+        )
+        for _ in range(count)
+    ]
+
+
+@pytest.fixture
+def published_article(
+    many_published_articles: list[content_models.Article],
+) -> content_models.Article:
+    return many_published_articles[0]
+
+
+@pytest.fixture
+def many_redacted_articles(request: pytest.FixtureRequest | None) -> list[content_models.Article]:
+    count: int = getattr(request, "param", 1)
+
+    return [
+        content_factories.Article(
+            published_at=localtime.yesterday(),
+            redacted_at=localtime.now(),
+        )
+        for _ in range(count)
+    ]
+
+
+@pytest.fixture
+def redacted_article(
+    many_redacted_articles: list[content_models.Article],
+) -> content_models.Article:
+    return many_redacted_articles[0]
 
 
 @pytest.fixture
