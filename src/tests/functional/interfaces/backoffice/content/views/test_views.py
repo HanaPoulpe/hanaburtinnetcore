@@ -15,7 +15,6 @@ def client_with_article_permission(client: django_test.Client) -> django_test.Cl
 
 
 class TestArticleList:
-    @pytest.mark.django_db
     def test_view(
         self,
         client_with_article_permission: django_test.Client,
@@ -28,7 +27,6 @@ class TestArticleList:
 
 
 class TestArticleDetails:
-    @pytest.mark.django_db
     def test_view(
         self,
         client_with_article_permission: django_test.Client,

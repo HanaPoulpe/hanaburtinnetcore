@@ -4,7 +4,6 @@ from django import urls
 
 
 class TestHealthChecks:
-    @pytest.mark.django_db
     def test_health_check(self, client: django_test.Client) -> None:
         response = client.get(urls.reverse("health_check:health_check_home"))
 

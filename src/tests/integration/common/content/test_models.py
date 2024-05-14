@@ -77,7 +77,6 @@ class TestArticle:
 
 
 class TestArticleDraft:
-    @pytest.mark.django_db
     def change_article_name_to_duplicate(
         self,
         article_draft: models.ArticleDraft,

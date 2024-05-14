@@ -48,7 +48,6 @@ class TestPasswordLogin:
 
         raise Exception(f"Invalid test parameter: {request.param}")
 
-    @pytest.mark.django_db
     def test_login_successful(
         self, client: django_test.Client, user_with_password: tuple[auth_models.User, str]
     ) -> None:
@@ -61,7 +60,6 @@ class TestPasswordLogin:
         ["invalid_password", "password_login_not_allowed", "invalid_user"],
         indirect=True,
     )
-    @pytest.mark.django_db
     def test_login_failed(
         self, client: django_test.Client, rejected_logins: RejectedLogin
     ) -> None:

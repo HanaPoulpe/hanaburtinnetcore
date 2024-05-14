@@ -40,7 +40,6 @@ class TestArticleOperations:
             return redacted_article
         return article
 
-    @pytest.mark.django_db
     def test_create_article(
         self,
         title: str,
@@ -59,7 +58,6 @@ class TestArticleOperations:
         assert article.created_at == localtime.now()
         assert article.updated_at == localtime.now()
 
-    @pytest.mark.django_db
     def test_create_duplicate_article(
         self,
         article: models.Article,
@@ -73,7 +71,6 @@ class TestArticleOperations:
                 user=None,
             )
 
-    @pytest.mark.django_db
     def test_update_article(
         self,
         content: str,
@@ -97,7 +94,6 @@ class TestArticleOperations:
         assert original_created_at == article.created_at
         assert article.updated_at == localtime.now()
 
-    @pytest.mark.django_db
     def test_update_article_from_draft(
         self,
         article_draft: ArticleDraftFixture,
@@ -112,7 +108,6 @@ class TestArticleOperations:
         assert article.format == article_draft.draft.new_attributes["format"]
         assert article.name == article_draft.draft.new_attributes["name"]
 
-    @pytest.mark.django_db
     def test_update_wrong_article_from_draft(
         self,
         article: models.Article,
@@ -125,7 +120,6 @@ class TestArticleOperations:
                 draft=article_draft.draft,
             )
 
-    @pytest.mark.django_db
     def test_update_article_with_conflicting_parameters(
         self,
         article_draft: ArticleDraftFixture,
@@ -138,7 +132,6 @@ class TestArticleOperations:
                 content="Shouldn't be here!",
             )
 
-    @pytest.mark.django_db
     @pytest.mark.parametrize(
         "content_format",
         [models.TextFormats.PLAIN_TEXT, models.TextFormats.HTML, models.TextFormats.MARKDOWN],
@@ -159,7 +152,6 @@ class TestArticleOperations:
         assert article.content == content
         assert article.format == content_format
 
-    @pytest.mark.django_db
     @pytest.mark.parametrize(
         "content_format",
         [models.TextFormats.PLAIN_TEXT, models.TextFormats.HTML, models.TextFormats.MARKDOWN],
@@ -176,7 +168,6 @@ class TestArticleOperations:
                 content_format=content_format,
             )
 
-    @pytest.mark.django_db
     def test_publish_article(self, article: models.Article) -> None:
         article = content_operations.publish_article(
             user=None,
@@ -185,7 +176,6 @@ class TestArticleOperations:
 
         assert article.is_published
 
-    @pytest.mark.django_db
     @pytest.mark.parametrize(
         "published",
         ("published", "redacted"),
@@ -198,7 +188,6 @@ class TestArticleOperations:
                 article=published,
             )
 
-    @pytest.mark.django_db
     def test_redact_article(self, published_article: models.Article) -> None:
         article = content_operations.redact_article(
             user=None,
@@ -208,7 +197,6 @@ class TestArticleOperations:
         assert not article.is_published
         assert article.is_redacted
 
-    @pytest.mark.django_db
     @pytest.mark.parametrize("not_published", ("not_published", "redacted"), indirect=True)
     def test_redact_not_redactable_article(self, not_published: models.Article) -> None:
         with pytest.raises(operations.OperationError):
@@ -217,7 +205,6 @@ class TestArticleOperations:
                 article=not_published,
             )
 
-    @pytest.mark.django_db
     def test_redact_article_with_invalid_dates(self, published_article: models.Article) -> None:
         long_past = localtime.make_aware(localtime.datetime(1970, 1, 1))
         with pytest.raises(ValueError):
@@ -233,7 +220,6 @@ class TestDraftOperations:
     def set_time(self, time_machine: time_machine.TimeMachineFixture) -> None:
         time_machine.move_to("2024-03-19 00:00:00", tick=False)
 
-    @pytest.mark.django_db
     def test_clean_content_drafts(
         self,
         expired_article_draft: ArticleDraftFixture,

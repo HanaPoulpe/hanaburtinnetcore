@@ -5,7 +5,6 @@ from tests.types import ArticleDraftFixture
 
 
 class TestArticleQueries:
-    @pytest.mark.django_db
     def test_get_article_by_name(self, article: models.Article) -> None:
         article_name = article.name
 
@@ -15,7 +14,6 @@ class TestArticleQueries:
 
 
 class TestContentDraftQueries:
-    @pytest.mark.django_db
     def test_expired_drafts(
         self,
         expired_article_draft: ArticleDraftFixture,
