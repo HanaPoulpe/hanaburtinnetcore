@@ -1,4 +1,4 @@
-from typing import Any, Self
+from typing import TYPE_CHECKING, Any, Self
 
 from django.conf import settings
 from django.contrib.auth import models as auth_models
@@ -6,6 +6,10 @@ from django.db import models
 
 from queenbees.core import models as core_models
 from queenbees.utils import localtime
+
+if TYPE_CHECKING:
+    # For some reason, mypy things objects should exist in the module
+    objects: Any = object()
 
 
 # Enums #
@@ -43,6 +47,17 @@ class GenericContent(core_models.TimeStampedMixin, core_models.UUIDIdentifierMix
             "id": self.id,
             "name": self.name,
         }
+
+
+class ArticleQuerySet(models.QuerySet["Article"]):
+    def published(self) -> Self:
+        return self.filter(published_at__lte=localtime.now(), redacted_at__isnull=True)
+
+    def redacted(self) -> Self:
+        return self.filter(redacted_at__lte=localtime.now())
+
+    def draft(self) -> Self:
+        return self.filter(published_at__isnull=True, redacted_at__isnull=True)
 
 
 class Article(GenericContent):
@@ -92,6 +107,8 @@ class Article(GenericContent):
                 name="check_published_if_redacted",
             ),
         ]
+
+    objects = ArticleQuerySet.as_manager()
 
 
 class File(GenericContent):
