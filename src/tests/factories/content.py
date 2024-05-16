@@ -31,6 +31,7 @@ class Article(DjangoModelFactory):
     name = factory.LazyAttribute(lazy_sentence)
     format = models.TextFormats.PLAIN_TEXT.value
     content = factory.LazyAttribute(lazy_paragraph)
+    created_by = factory.SubFactory(users_factory.User)
 
 
 class File(DjangoModelFactory):
