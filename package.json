@@ -1,7 +1,7 @@
 {
   "author": "Hana Burtin",
   "dependencies": {
-    "@babel/eslint-parser": "^7.24.7",
+    "@babel/eslint-parser": "^7.24.8",
     "jest": "^29.7.0"
   },
   "devDependencies": {
